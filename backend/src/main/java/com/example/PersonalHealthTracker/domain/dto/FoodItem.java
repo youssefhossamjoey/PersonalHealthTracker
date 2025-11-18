@@ -1,4 +1,4 @@
-package com.example.PersonalHealthTracker.domain.dto;
+package com.example.personalhealthtracker.domain.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -6,12 +6,12 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class ItemDto {
+@Builder
+public class FoodItem {
     private Long id;
-    private String itemName;
-    private Float kcal;
-    private Float protein;
+    private String name;
+    private Double kcal;
+    private Double pro;
 }

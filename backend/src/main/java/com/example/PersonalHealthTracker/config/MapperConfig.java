@@ -1,4 +1,4 @@
-package com.example.PersonalHealthTracker.config;
+package com.example.personalhealthtracker.config;
 
 import org.modelmapper.ModelMapper;
 import org.modelmapper.convention.MatchingStrategies;

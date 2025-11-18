@@ -1,4 +1,4 @@
-package com.example.PersonalHealthTracker;
+package com.example.personalhealthtracker;
 
 import lombok.extern.java.Log;
 import org.springframework.boot.SpringApplication;

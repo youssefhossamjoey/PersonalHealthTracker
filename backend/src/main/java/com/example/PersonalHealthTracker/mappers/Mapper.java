@@ -1,4 +1,4 @@
-package com.example.PersonalHealthTracker.mappers;
+package com.example.personalhealthtracker.mappers;
 
 public interface Mapper<A,B> {
 
