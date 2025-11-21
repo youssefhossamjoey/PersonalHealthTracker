@@ -1,4 +1,4 @@
-package com.example.personalhealthtracker.security;
+package com.example.personalhealthtracker.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,8 +16,6 @@ public class TestSecurityConfig {
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
                                 .anyRequest().permitAll()
-//                        .requestMatchers("/useraccount/**").permitAll()
-//                        .anyRequest().authenticated()
                 );
 
         return http.build();

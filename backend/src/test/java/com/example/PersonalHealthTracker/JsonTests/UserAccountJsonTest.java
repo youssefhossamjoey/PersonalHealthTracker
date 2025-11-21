@@ -8,6 +8,7 @@ import org.springframework.boot.test.autoconfigure.json.JsonTest;
 import org.springframework.boot.test.json.JacksonTester;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -19,7 +20,7 @@ public class UserAccountJsonTest {
 
     @Test
     void UserAccountSerializationTest() throws IOException {
-        UserAccount userAccount = new UserAccount(UUID.fromString("00000000-0000-0000-0000-000000000001"),"user1","pass1",Role.MEMBER);
+        UserAccount userAccount = new UserAccount(UUID.fromString("00000000-0000-0000-0000-000000000001"),"user1","pass1",Role.MEMBER,LocalDateTime.now());
         assertThat(json.write(userAccount)).isStrictlyEqualToJson("/expectedUserAccount.json");
 
         assertThat(json.write(userAccount)).hasJsonPathValue("@.id");
@@ -46,11 +47,12 @@ public class UserAccountJsonTest {
                           "id": "00000000-0000-0000-0000-000000000001",
                           "username": "user1",
                           "password": "pass1",
-                          "role": "MEMBER"
+                          "role": "MEMBER",
+                          "createdAt": "2024-01-01T00:00:00"
                         }
            """;
         assertThat(json.parse(expected))
-                .isEqualTo(new UserAccount(UUID.fromString("00000000-0000-0000-0000-000000000001"),"user1","pass1", Role.MEMBER));
+                .isEqualTo(new UserAccount(UUID.fromString("00000000-0000-0000-0000-000000000001"),"user1","pass1", Role.MEMBER,LocalDateTime.now()));
         assertThat(json.parseObject(expected).getId()).isEqualTo(UUID.fromString("00000000-0000-0000-0000-000000000001"));
         assertThat(json.parseObject(expected).getUsername()).isEqualTo("user1");
         assertThat(json.parseObject(expected).getPassword()).isEqualTo("pass1");

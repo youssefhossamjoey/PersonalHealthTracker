@@ -1,4 +1,4 @@
-package com.example.personalhealthtracker.config;
+package com.example.personalhealthtracker.controllers;
 
 import com.example.personalhealthtracker.domain.dto.AuthResponse;
 import com.example.personalhealthtracker.domain.dto.LoginRequest;
@@ -17,6 +17,7 @@ public class AuthController {
     private final AuthenticationService authenticationService;
 
 
+    @RequestMapping(path = "/login")
     public ResponseEntity<AuthResponse> login(@RequestBody LoginRequest loginRequest) {
         UserAccountDetails userAccountDetails = authenticationService.authenticate(
                 loginRequest.getUsername(),
