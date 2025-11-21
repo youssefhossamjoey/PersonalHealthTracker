@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Data
@@ -18,6 +19,7 @@ public class UserAccount {
     private String username;
     private String password;
     private Role role;
+    private LocalDateTime createdAt;
 
     public UserAccount(String username, String password, Role role) {
         this.username = username;

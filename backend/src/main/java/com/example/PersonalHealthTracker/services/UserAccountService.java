@@ -18,5 +18,7 @@ public interface UserAccountService {
 
     Optional<UserAccountEntity> findOne(UUID id);
 
+    Optional<UserAccountEntity> findByUsername(String username);
+
 
 }

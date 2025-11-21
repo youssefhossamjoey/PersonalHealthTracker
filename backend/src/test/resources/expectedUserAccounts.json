@@ -1,0 +1,23 @@
+[
+  {
+    "id": "3f1a9d57-9d60-4b8c-8a13-bb1fb5f928d1",
+    "username": "maria_dev",
+    "password": "secret123",
+    "role": "ADMIN",
+    "createdAt": "2025-01-19T14:22:08"
+  },
+  {
+    "id": "a7c227eb-85b4-42c2-b923-2b1f80ae0e91",
+    "username": "john_doe",
+    "password": "pass987",
+    "role": "USER",
+    "createdAt": "2025-01-17T09:45:12"
+  },
+  {
+    "id": "56b9e955-0b00-48c9-b8dd-9f9b82f03d90",
+    "username": "sarah99",
+    "password": "mypassword",
+    "role": "USER",
+    "createdAt": "2025-01-10T19:01:44"
+  }
+]

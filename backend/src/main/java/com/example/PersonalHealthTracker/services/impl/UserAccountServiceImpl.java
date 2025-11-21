@@ -46,4 +46,9 @@ public class UserAccountServiceImpl implements UserAccountService {
     public Optional<UserAccountEntity> findOne(UUID id) {
         return userAccountRepository.findById(id);
     }
+
+    @Override
+    public Optional<UserAccountEntity> findByUsername(String username) {
+        return userAccountRepository.findByUsername(username);
+    }
 }
