@@ -31,7 +31,7 @@ public class UserAccountController {
             this.userAccountService = userAccountService;
     }
 
-    @PostMapping
+    @PostMapping(path = "/register")
     public ResponseEntity<Void> createUserAccount(@RequestBody UserAccount userAccount, UriComponentsBuilder ucb){
         UserAccountEntity createdUserAccount = userAccountService.creatUserAccount(userAccountMapper.mapFrom(userAccount));
         URI locationOfNewUserAccount = ucb

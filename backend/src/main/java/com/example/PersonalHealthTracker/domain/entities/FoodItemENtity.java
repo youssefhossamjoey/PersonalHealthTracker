@@ -1,12 +1,10 @@
 package com.example.personalhealthtracker.domain.entities;
 
 import jakarta.persistence.*;
-import jdk.jfr.Enabled;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.hibernate.annotations.GenericGenerator;
 import java.util.UUID;
 

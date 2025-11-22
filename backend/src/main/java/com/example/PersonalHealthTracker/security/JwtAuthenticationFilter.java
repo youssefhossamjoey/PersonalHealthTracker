@@ -1,6 +1,7 @@
 package com.example.personalhealthtracker.security;
 
 import com.example.personalhealthtracker.services.AuthenticationService;
+import io.jsonwebtoken.ExpiredJwtException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -37,9 +38,18 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 }
             }
         }
+        catch (ExpiredJwtException ex){
+            log.warn("Token expired");
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            response.getWriter().write("Token expired");
+            return;
+        }
         catch (Exception ex){
             // dont authemticate
             log.warn("Recieved invalid auth token");
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            response.getWriter().write("Invalid token");
+            return;
         }
         filterChain.doFilter(request, response);
     }
