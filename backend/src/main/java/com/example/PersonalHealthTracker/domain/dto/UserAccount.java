@@ -1,6 +1,7 @@
 package com.example.personalhealthtracker.domain.dto;
 
 import com.example.personalhealthtracker.domain.entities.Role;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -16,7 +17,9 @@ import java.util.UUID;
 public class UserAccount {
 
     private UUID id;
+    @NotBlank
     private String username;
+    @NotBlank
     private String password;
     private Role role;
     private LocalDateTime createdAt;
@@ -25,5 +28,10 @@ public class UserAccount {
         this.username = username;
         this.password = password;
         this.role = role;
+    }
+
+    public UserAccount(String username, String password) {
+        this.username = username;
+        this.password = password;
     }
 }

@@ -31,32 +31,12 @@ public class UserAccountController {
             this.userAccountService = userAccountService;
     }
 
-    @PostMapping(path = "/register")
-    public ResponseEntity<Void> createUserAccount(@RequestBody UserAccount userAccount, UriComponentsBuilder ucb){
-        UserAccountEntity createdUserAccount = userAccountService.creatUserAccount(userAccountMapper.mapFrom(userAccount));
-        URI locationOfNewUserAccount = ucb
-                .path("useraccount/{id}")
-                .buildAndExpand(createdUserAccount.getId())
-                .toUri();
-        return ResponseEntity.created(locationOfNewUserAccount).build();
-    }
     @GetMapping(path = "/{id}")
     public ResponseEntity<UserAccount> getUserAccount(@PathVariable("id") UUID id){
         Optional<UserAccountEntity> requestedUserAccount = userAccountService.findOne(id);
         return requestedUserAccount.map(userAccountEntity ->
                         ResponseEntity.ok(userAccountMapper.mapTo(userAccountEntity)))
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
-
-    }
-    @GetMapping
-    private ResponseEntity<Page<UserAccount>> findAll(Pageable pageable){
-        Page<UserAccountEntity> page = userAccountService.findAll(
-                PageRequest.of(
-                        pageable.getPageNumber(),
-                        pageable.getPageSize(),
-                        pageable.getSortOr(Sort.by(Sort.Direction.ASC,"username"))
-                ));
-        return ResponseEntity.ok(page.map(userAccountMapper::mapTo));
 
     }
 }

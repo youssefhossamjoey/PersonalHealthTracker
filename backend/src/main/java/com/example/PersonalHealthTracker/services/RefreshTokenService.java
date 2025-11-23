@@ -2,12 +2,14 @@ package com.example.personalhealthtracker.services;
 
 import com.example.personalhealthtracker.domain.entities.RefreshTokenEntity;
 
+import java.util.Optional;
+import java.util.UUID;
+
 public interface RefreshTokenService {
 
-    public RefreshTokenEntity createRefreshToken(String username);
+    RefreshTokenEntity createRefreshTokenForUser(UUID userId);
 
-    public RefreshTokenEntity verifyExpiration(RefreshTokenEntity token);
-
-    public RefreshTokenEntity getToken(String token);
-
+    void deleteByToken(String token);
+    
+    RefreshTokenEntity findValidTokenOrThrow(String token);
 }

@@ -2,5 +2,6 @@
   "id": "00000000-0000-0000-0000-000000000001",
   "username": "user1",
   "password": "pass1",
-  "role": "MEMBER"
+  "role": "MEMBER",
+  "createdAt": "2024-01-01T00:00:00"
 }

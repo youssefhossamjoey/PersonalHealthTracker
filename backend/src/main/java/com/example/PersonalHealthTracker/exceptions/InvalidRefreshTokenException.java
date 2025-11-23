@@ -1,11 +1,11 @@
 package com.example.personalhealthtracker.exceptions;
 
-public class ExpiredRefreshTokenException extends RuntimeException {
-    public ExpiredRefreshTokenException() {
-        super("Refresh token expired");
+public class InvalidRefreshTokenException extends RuntimeException {
+    public InvalidRefreshTokenException() {
+        super("Refresh token cannot be verified");
     }
 
-    public ExpiredRefreshTokenException(Throwable cause) {
-        super("Refresh token expired", cause);
+    public InvalidRefreshTokenException(Throwable cause) {
+        super("Refresh token cannot be verified", cause);
     }
 }

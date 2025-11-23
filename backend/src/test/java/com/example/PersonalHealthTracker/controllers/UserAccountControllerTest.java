@@ -1,62 +1,110 @@
 package com.example.personalhealthtracker.controllers;
 
+import com.example.personalhealthtracker.domain.dto.LoginRequest;
 import com.example.personalhealthtracker.domain.dto.UserAccount;
-import com.example.personalhealthtracker.domain.entities.Role;
-import com.jayway.jsonpath.DocumentContext;
-import com.jayway.jsonpath.JsonPath;
-import net.minidev.json.JSONArray;
+import com.example.personalhealthtracker.domain.entities.RefreshTokenEntity;
+import com.example.personalhealthtracker.domain.entities.UserAccountEntity;
+import com.example.personalhealthtracker.mappers.impl.UserAccountMapper;
+import com.example.personalhealthtracker.security.UserAccountDetails;
+import com.example.personalhealthtracker.services.AuthenticationService;
+import com.example.personalhealthtracker.services.RefreshTokenService;
+import com.example.personalhealthtracker.services.UserAccountService;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.web.servlet.MockMvc;
 
-import java.net.URI;
+import java.time.Instant;
+import java.util.UUID;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.*;
 
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@ActiveProfiles("test")
+@SpringBootTest
+@AutoConfigureMockMvc
 public class UserAccountControllerTest {
+    @Autowired
+    private MockMvc mockMvc;
+    @Mock
+    private AuthenticationService authenticationService;
 
-	@Autowired
-	private TestRestTemplate restTemplate;
+    @Mock
+    private RefreshTokenService refreshTokenService;
 
-	@Test
-	public void UserAccountCanBeCreated() {
-		UserAccount user = new UserAccount("user1", "pass1", Role.MEMBER);
-		ResponseEntity<Void> response = restTemplate.postForEntity("/useraccount", user, Void.class);
-		assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CREATED);
+    @Mock
+    private UserAccountService userAccountService;
 
-		URI location = response.getHeaders().getLocation();
-		ResponseEntity<String> getResponse = restTemplate.getForEntity(location, String.class);
-		assertThat(getResponse.getStatusCode()).isEqualTo(HttpStatus.OK);
+    @Mock
+    private UserAccountMapper userAccountMapper;
 
-		DocumentContext dc = JsonPath.parse(getResponse.getBody());
-		String id = dc.read("$.id");
-		String username = dc.read("$.username");
-		String role = dc.read("$.role");
-		String password = dc.read("$.password");
+    @InjectMocks
+    private AuthController authController;
 
-		assertThat(id).isNull();
-		assertThat(password).isNull();
-		assertThat(username).isEqualTo("user1");
-		assertThat(role).isEqualTo("MEMBER");
-	}
+    @BeforeEach
+    void setUp() {
+        MockitoAnnotations.openMocks(this);
+    }
+    @Test
+    void registerUserReturnsAuthResponseAndCookie() {
+        // Arrange
+        UserAccount userDto = new UserAccount("user-test", "pass-test", null);
+        UserAccountEntity savedEntity = new UserAccountEntity();
+        savedEntity.setId(UUID.randomUUID());
+        savedEntity.setUsername("user-test");
 
-	@Test
-	public void shouldReturnAPageOfUserAccounts() {
-		restTemplate.postForEntity("/useraccount", new UserAccount("u1", "p1", Role.MEMBER), Void.class);
-		restTemplate.postForEntity("/useraccount", new UserAccount("u2", "p2", Role.MEMBER), Void.class);
-		restTemplate.postForEntity("/useraccount", new UserAccount("u3", "p3", Role.MEMBER), Void.class);
+        when(userAccountMapper.mapFrom(userDto)).thenReturn(savedEntity);
+        when(userAccountService.creatUserAccount(savedEntity)).thenReturn(savedEntity);
+        when(refreshTokenService.createRefreshTokenForUser(savedEntity.getId()))
+                .thenReturn(new RefreshTokenEntity(UUID.fromString("00000000-0000-0000-0000-000000000001"),
+                        savedEntity,"refresh-token", Instant.now().plusSeconds(3600),false));
 
-		ResponseEntity<String> response = restTemplate.getForEntity("/useraccount?page=0&size=1", String.class);
-		assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+        UserAccountDetails details = new UserAccountDetails(savedEntity);
+        when(authenticationService.generateToken(details)).thenReturn("access-token");
 
-		DocumentContext dc = JsonPath.parse(response.getBody());
-		JSONArray content = dc.read("$.content");
-		assertThat(content.size()).isEqualTo(1);
-	}
+        // Act
+        ResponseEntity<?> response = authController.createUserAccount(userDto, null);
+
+        // Assert
+        assertThat(response.getStatusCodeValue()).isEqualTo(201);
+        assertThat(response.getHeaders().getFirst("Set-Cookie")).contains("refresh-token");
+        assertThat(response.getBody()).isNotNull();
+
+        verify(userAccountService, times(1)).creatUserAccount(savedEntity);
+        verify(refreshTokenService, times(1)).createRefreshTokenForUser(savedEntity.getId());
+    }
+
+    @Test
+    void loginUserReturnsAuthResponseAndCookie() {
+        // Arrange
+        LoginRequest loginRequest = new LoginRequest("user-test", "pass-test");
+        UserAccountEntity userEntity = new UserAccountEntity();
+        userEntity.setId(UUID.randomUUID());
+        userEntity.setUsername("user-test");
+
+        UserAccountDetails details = new UserAccountDetails(userEntity);
+
+        when(authenticationService.authenticate("user-test", "pass-test")).thenReturn(details);
+        when(refreshTokenService.createRefreshTokenForUser(userEntity.getId()))
+                .thenReturn(new RefreshTokenEntity(UUID.fromString("00000000-0000-0000-0000-000000000001"),
+                        userEntity,"refresh-token", Instant.now().plusSeconds(3600),false));
+        when(authenticationService.generateToken(details)).thenReturn("access-token");
+
+        // Act
+        ResponseEntity<?> response = authController.login(loginRequest);
+
+        // Assert
+        assertThat(response.getStatusCodeValue()).isEqualTo(200);
+        assertThat(response.getHeaders().getFirst("Set-Cookie")).contains("refresh-token");
+        assertThat(response.getBody()).isNotNull();
+
+        verify(authenticationService, times(1)).authenticate("user-test", "pass-test");
+    }
+
+
 }

@@ -20,7 +20,7 @@ public class UserAccountJsonTest {
 
     @Test
     void UserAccountSerializationTest() throws IOException {
-        UserAccount userAccount = new UserAccount(UUID.fromString("00000000-0000-0000-0000-000000000001"),"user1","pass1",Role.MEMBER,LocalDateTime.now());
+        UserAccount userAccount = new UserAccount(UUID.fromString("00000000-0000-0000-0000-000000000001"),"user1","pass1",Role.MEMBER,LocalDateTime.parse("2024-01-01T00:00:00"));
         assertThat(json.write(userAccount)).isStrictlyEqualToJson("/expectedUserAccount.json");
 
         assertThat(json.write(userAccount)).hasJsonPathValue("@.id");
@@ -52,7 +52,7 @@ public class UserAccountJsonTest {
                         }
            """;
         assertThat(json.parse(expected))
-                .isEqualTo(new UserAccount(UUID.fromString("00000000-0000-0000-0000-000000000001"),"user1","pass1", Role.MEMBER,LocalDateTime.now()));
+                .isEqualTo(new UserAccount(UUID.fromString("00000000-0000-0000-0000-000000000001"),"user1","pass1", Role.MEMBER,LocalDateTime.parse("2024-01-01T00:00:00")));
         assertThat(json.parseObject(expected).getId()).isEqualTo(UUID.fromString("00000000-0000-0000-0000-000000000001"));
         assertThat(json.parseObject(expected).getUsername()).isEqualTo("user1");
         assertThat(json.parseObject(expected).getPassword()).isEqualTo("pass1");
