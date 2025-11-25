@@ -9,8 +9,10 @@ import com.example.personalhealthtracker.repositories.RefreshTokenRepository;
 import com.example.personalhealthtracker.repositories.UserAccountRepository;
 import com.example.personalhealthtracker.services.RefreshTokenService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Instant;
 import java.util.Optional;
@@ -20,6 +22,7 @@ import java.util.Base64;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class RefreshTokenServiceImpl implements RefreshTokenService {
 
     private final RefreshTokenRepository refreshTokenRepository;
@@ -34,10 +37,13 @@ public class RefreshTokenServiceImpl implements RefreshTokenService {
     }
 
     @Override
+    @Transactional
     public RefreshTokenEntity createRefreshTokenForUser(UUID userId) {
+        log.info("invoked createRefreshTokenForUser for user: "+userId);
+
         UserAccountEntity user = userAccountRepository.findById(userId)
                 .orElseThrow(() -> new IllegalArgumentException("User not found: " + userId));
-        deleteTokens(user);
+        deleteTokens(userId);
         RefreshTokenEntity refreshToken = new RefreshTokenEntity();
         refreshToken.setUser(user);
         refreshToken.setExpiryDate(Instant.now().plusMillis(refreshTokenDurationMs));
@@ -47,9 +53,11 @@ public class RefreshTokenServiceImpl implements RefreshTokenService {
         SecureRandomHolder.SECURE_RANDOM.nextBytes(randomBytes);
         String token = Base64.getUrlEncoder().withoutPadding().encodeToString(randomBytes);
         refreshToken.setToken(token);
+        log.info("reached line 54");
         return refreshTokenRepository.save(refreshToken);
     }
 
+    @Transactional
     @Override
     public void deleteByToken(String token) {
         refreshTokenRepository.deleteByToken(token);
@@ -67,6 +75,7 @@ public class RefreshTokenServiceImpl implements RefreshTokenService {
 
     }
 
+    @Transactional
     private RefreshTokenEntity verifyExpiration(RefreshTokenEntity token) {
         if (token.getExpiryDate().isBefore(Instant.now())) {
             refreshTokenRepository.delete(token);
@@ -75,7 +84,9 @@ public class RefreshTokenServiceImpl implements RefreshTokenService {
         return token;
     }
 
-    public void deleteTokens(UserAccountEntity user) {
-        refreshTokenRepository.deleteByUser(user);
+    @Transactional
+    public void deleteTokens(UUID user_id) {
+        log.info("invoked delete bu user for used: "+user_id);
+        refreshTokenRepository.deleteByUserId(user_id);
     }
 }
