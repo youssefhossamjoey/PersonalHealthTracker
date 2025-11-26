@@ -30,13 +30,14 @@ public class FoodItemServiceImpl implements FoodItemService {
     }
 
     @Override
-    public List<FoodItemEntity> findAll() {
-        return StreamSupport.stream(foodItemRepository.findAll().spliterator(),false).collect(Collectors.toList());
+    public List<FoodItemEntity> findAll(UUID ownerId) {
+        return StreamSupport.stream(foodItemRepository.findAllByOwner_Id(ownerId).spliterator(),false).collect(Collectors.toList());
     }
 
     @Override
-    public Page<FoodItemEntity> findAll(Pageable pageable) {
-        return foodItemRepository.findAll(
+    public Page<FoodItemEntity> findAll(UUID ownerId,Pageable pageable) {
+        return foodItemRepository.findAllByOwner_Id(
+                ownerId,
                 PageRequest.of(
                         pageable.getPageNumber(),
                         pageable.getPageSize(),
@@ -46,7 +47,7 @@ public class FoodItemServiceImpl implements FoodItemService {
 
 
     @Override
-    public Optional<FoodItemEntity> findOne(UUID id) {
-        return foodItemRepository.findById(id);
+    public Optional<FoodItemEntity> findOne(UUID ownerId,UUID id) {
+        return foodItemRepository.findByIdAndOwner_Id(id,ownerId);
     }
 }

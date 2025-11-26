@@ -25,7 +25,7 @@ public class FoodItemServiceTest {
 
     @Test
     public void FoodItemCanBeCreated() {
-        FoodItemEntity item = new FoodItemEntity("chicken", 1.00, 1.00);
+        FoodItemEntity item = new FoodItemEntity("chicken", 1.00, 1.00,null);
         assertNull(item.getId());
         FoodItemEntity saved = foodItemService.createFoodItem(item);
         assertNotNull(saved.getId());
@@ -34,7 +34,7 @@ public class FoodItemServiceTest {
 
     @Test
     public void FoodItemCanBeCreatedAndFetched() {
-        FoodItemEntity item = new FoodItemEntity("chicken", 1.00, 1.00);
+        FoodItemEntity item = new FoodItemEntity("chicken", 1.00, 1.00,null);
         FoodItemEntity saved = foodItemService.createFoodItem(item);
         UUID id = saved.getId();
         Optional<FoodItemEntity> fetched = foodItemService.findOne(id);

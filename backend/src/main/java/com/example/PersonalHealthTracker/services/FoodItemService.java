@@ -15,10 +15,10 @@ public interface FoodItemService {
 
     FoodItemEntity createFoodItem(FoodItemEntity foodItemEntity);
 
-    List<FoodItemEntity> findAll();
+    List<FoodItemEntity> findAll(UUID ownerId);
 
-    Page<FoodItemEntity> findAll(Pageable pageable);
+    Page<FoodItemEntity> findAll(UUID ownerId,Pageable pageable);
 
-    Optional<FoodItemEntity> findOne(UUID id);
+    Optional<FoodItemEntity> findOne(UUID ownerId,UUID id);
 
 }

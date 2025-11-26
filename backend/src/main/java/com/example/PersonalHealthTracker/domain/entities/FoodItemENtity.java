@@ -28,9 +28,14 @@ public class FoodItemEntity {
 
     private Double pro;
 
-    public FoodItemEntity(String name, Double kcal,Double pro) {
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "owner_id", nullable = false,referencedColumnName = "id")
+    private UserAccountEntity owner;
+
+    public FoodItemEntity(String name, Double kcal,Double pro,UserAccountEntity owner) {
         this.name = name;
         this.kcal = kcal;
         this.pro = pro;
+        this.owner = owner;
     }
 }

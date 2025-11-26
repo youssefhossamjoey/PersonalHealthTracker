@@ -1,9 +1,7 @@
 package com.example.personalhealthtracker.domain.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+
 import java.util.UUID;
 
 @Data
@@ -15,7 +13,6 @@ public class FoodItem {
     private String name;
     private Double kcal;
     private Double pro;
-
     public FoodItem(String name, Double pro, Double kcal) {
         this.name = name;
         this.pro = pro;

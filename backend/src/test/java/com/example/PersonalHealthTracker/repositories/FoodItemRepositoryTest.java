@@ -28,7 +28,7 @@ public class FoodItemRepositoryTest {
 
     @Test
     public void FoodItemCanBeCreated(){
-        FoodItemEntity item = new FoodItemEntity("chicken",1.00,1.00);
+        FoodItemEntity item = new FoodItemEntity("chicken",1.00,1.00,null);
         assertNull(item.getId());
         FoodItemEntity saved = foodItemRepository.save(item);
 
@@ -39,7 +39,7 @@ public class FoodItemRepositoryTest {
 
     @Test
     public void FoodItemCanBeCreatedAndFetched(){
-        FoodItemEntity item = new FoodItemEntity("chicken",1.00,1.00);
+        FoodItemEntity item = new FoodItemEntity("chicken",1.00,1.00,null);
         FoodItemEntity saved = foodItemRepository.save(item);
 
         UUID id = saved.getId();
