@@ -10,26 +10,38 @@ function Register() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
-    const [role, setRole] = useState('ROLE_CUSTOMER');
+    const [role] = useState('MEMBER');
     const [error, setError] = useState('');
     const navigate = useNavigate(); // Get the history object for redirection
     const { api } = useApi();
 
 
-    function validate() {
+   async function validate() {
         if (!username) return 'Username is required';
         const re = /^(?=[a-zA-Z0-9._]{8,20}$)(?!.*[_.]{2})[^_.].*[^_.]$/;
         if (!re.test(username)) return 'Invalid username';
         if (!password) return 'Password is required';
         if (password.length < 6) return 'Password must be at least 6 characters';
         if (password !== confirmPassword) return 'Passwords do not match';
+        if ( await checkUsernameAvailability(username) === false) return 'Username is already taken';
         return '';
     }
+    const checkUsernameAvailability = async (username) => {
+        try {
+            const { endpoint, options } = apiRoutes.checkUsernameAvailable(username);
+            const data = await api(endpoint, options);
+            return data;
+        } catch (err) {
+            console.error('Username availability check failed:', err.response ? err.response.data : err.message);
+            return false;
+        }
+    }
+
     const handleSignup = async (e) => {
         e.preventDefault();
         try {
             setError('');
-            const v = validate();
+            const v = await validate();
             if (v) {
                 setError(v);
                 return;

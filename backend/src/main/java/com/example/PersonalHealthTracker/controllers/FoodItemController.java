@@ -27,7 +27,7 @@ public class FoodItemController {
     private Mapper<FoodItemEntity, FoodItem> foodItemMapper;
     private FoodItemService foodItemService;
 
-    public FoodItemController(Mapper<FoodItemEntity, FoodItem> foodItemMapper, FoodItemService foodItemService,@AuthenticationPrincipal UserAccountDetails user) {
+    public FoodItemController(Mapper<FoodItemEntity, FoodItem> foodItemMapper, FoodItemService foodItemService) {
         this.foodItemMapper = foodItemMapper;
         this.foodItemService = foodItemService;
     }

@@ -19,11 +19,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.CookieValue;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
@@ -47,6 +43,12 @@ public class AuthController {
     private String sameSite;
     @Value("${app.refresh-token-cookie-secure}")
     private boolean secure;
+
+    @GetMapping(path ="/username-available")
+    public ResponseEntity<Boolean> CheckAvailable(@RequestParam String username ){
+        boolean taken = userAccountService.isAvaialble(username);
+        return ResponseEntity.ok(!taken);
+    }
 
     @PostMapping(path = "/register")
     public ResponseEntity<AuthResponse> createUserAccount(@Valid @RequestBody UserAccount userAccount, UriComponentsBuilder ucb) {

@@ -26,6 +26,11 @@ public class UserAccountServiceImpl implements UserAccountService {
     }
 
     @Override
+    public boolean isAvaialble(String username) {
+        return userAccountRepository.existsByUsername(username);
+    }
+
+    @Override
     public UserAccountEntity creatUserAccount(UserAccountEntity userAccountEntity) {
         userAccountEntity.setPassword(passwordEncoder.encode(userAccountEntity.getPassword()));
         return userAccountRepository.save(userAccountEntity);

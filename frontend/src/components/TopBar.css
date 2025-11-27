@@ -1,0 +1,39 @@
+.pht-topbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 56px;
+  background: #496a81;
+  border-bottom: 1px solid #496a81;
+  display: flex;
+  align-items: center;
+  justify-content: center; /* keep flex centering, we'll absolutely position left/right parts */
+  padding: 0 16px;
+  z-index: 1000;
+  box-sizing: border-box;
+}
+
+.pht-topbar-left {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.pht-topbar-right {
+  position: absolute;
+  right: 16px;
+  display: flex;
+  align-items: center;
+}
+
+/* add a small body offset helper in case pages need spacing under the bar */
+body {
+  --pht-topbar-height: 56px;
+}
+
+.pht-page-offset {
+  padding-top: var(--pht-topbar-height);
+}

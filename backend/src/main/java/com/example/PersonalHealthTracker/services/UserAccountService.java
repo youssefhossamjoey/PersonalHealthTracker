@@ -10,6 +10,8 @@ import java.util.UUID;
 
 public interface UserAccountService {
 
+    boolean isAvaialble(String username);
+
     UserAccountEntity creatUserAccount(UserAccountEntity userAccountEntity);
 
     List<UserAccountEntity> findAll();

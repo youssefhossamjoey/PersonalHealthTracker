@@ -17,6 +17,13 @@ export const apiRoutes = {
         options: {}
     }),
 
+    checkUsernameAvailable: (username) => ({
+        endpoint: `/api/v1/auth/username-available?username=${encodeURIComponent(username)}`,
+        options: {
+            method: "GET"
+        }
+    }),
+
     register: (userInfo) => ({
         endpoint: "/api/v1/auth/register",
         options: {

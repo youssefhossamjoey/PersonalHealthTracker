@@ -26,14 +26,14 @@ export function useApi() {
         let res = await fetch(`${BASE_URL}${endpoint}`, {
             ...options,
             headers: {
-                ...(options.headers || {} ),
+                ...(options.headers || {}),
                 Authorization: accessToken ? `Bearer ${accessToken}` : null,
                 "Content-Type": (options.body && !options.headers?.["Content-Type"] && !(options.body instanceof FormData)) ? "application/json" : undefined,
             },
             credentials: "include", // to include cookies
         });
 
-        if (res.status === 401) {
+        if (res.status === 401&&endpoint!='/api/v1/auth/login') {
             const newToken = await refreshToken();
             if (!newToken) {
                 throw new Error("Unauthorized");
@@ -53,7 +53,9 @@ export function useApi() {
             const errorData = await res.json();
             throw new Error(errorData.message || "API request failed");
         }
-        return res.json();
+        const text = await res.text();      // read raw text first
+        const data = text ? JSON.parse(text) : null;
+        return data;
     }
 
     return { api };

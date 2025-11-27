@@ -1,8 +1,7 @@
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+  width: 100%;
+  margin: 0;
+  text-align: left;
 }
 
 .logo {
@@ -85,3 +84,38 @@
   color: #8b0000;
   font-size: 0.9rem;
 }
+
+/* Layout variables and helpers for TopBar + Sidebar layout */
+:root {
+  --pht-topbar-height: 56px;
+  --pht-sidebar-width: 115px;
+}
+
+/* Basic resets for consistent layout */
+html, body, #root {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+/* Apply layout offsets only when App has the helper class. Login/signup remain centered. */
+.pht-has-layout {
+  padding-top: var(--pht-topbar-height);
+  margin-left: var(--pht-sidebar-width);
+  min-height: calc(100vh - var(--pht-topbar-height));
+  width: calc(100% - var(--pht-sidebar-width));
+}
+
+/* Ensure main content areas can stretch to fill available space */
+.pht-main-content, .App > .pht-main-content {
+  overflow: hidden;
+  min-height: calc(100vh - var(--pht-topbar-height));
+  width: 100%;
+}
+
+/* Utility: page offset for elements that should sit below the top bar */
+.pht-page-offset { padding-top: var(--pht-topbar-height); }

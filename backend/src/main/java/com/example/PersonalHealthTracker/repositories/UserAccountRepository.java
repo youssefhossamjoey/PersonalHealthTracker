@@ -10,4 +10,5 @@ import java.util.UUID;
 public interface UserAccountRepository extends CrudRepository<UserAccountEntity, UUID>, PagingAndSortingRepository<UserAccountEntity, UUID> {
 
     Optional<UserAccountEntity> findByUsername(String username);
+    boolean existsByUsername(String username);
 }
