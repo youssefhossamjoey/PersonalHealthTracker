@@ -21,4 +21,6 @@ public interface FoodItemService {
 
     Optional<FoodItemEntity> findOne(UUID ownerId,UUID id);
 
+    void delete(UUID ownerId,UUID id);
+
 }

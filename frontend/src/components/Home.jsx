@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useApi } from "../api/api";
 import { apiRoutes } from "../api/auth";
 import { useAuth } from '../auth/AuthContext.jsx';
-import NavBar from './NavBar.jsx';
+
 
 function Home({ username }) {
     const navigate = useNavigate();
@@ -23,8 +23,7 @@ function Home({ username }) {
     };
 
     return (
-        <div className="pht-main-content" style={{ backgroundColor: '#b3af8f' }}>
-            <NavBar />
+        <div className="pht-main-content" >
 
         </div>
     );

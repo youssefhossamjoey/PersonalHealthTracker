@@ -50,4 +50,9 @@ public class FoodItemServiceImpl implements FoodItemService {
     public Optional<FoodItemEntity> findOne(UUID ownerId,UUID id) {
         return foodItemRepository.findByIdAndOwner_Id(id,ownerId);
     }
+
+    @Override
+    public void delete(UUID ownerId,UUID id) {
+        foodItemRepository.deleteByIdAndOwner_Id(id,ownerId);
+    }
 }

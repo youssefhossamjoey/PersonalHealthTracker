@@ -2,9 +2,11 @@ package com.example.personalhealthtracker.repositories;
 
 import com.example.personalhealthtracker.domain.entities.FoodItemEntity;
 import org.springframework.data.domain.Page;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.domain.Pageable;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -14,4 +16,8 @@ public interface FoodItemRepository extends CrudRepository<FoodItemEntity, UUID>
     Optional<FoodItemEntity> findByIdAndOwner_Id(UUID id, UUID ownerId);
     List<FoodItemEntity> findAllByOwner_Id(UUID ownerId);
     Page<FoodItemEntity> findAllByOwner_Id(UUID ownerId, Pageable pageable);
+
+    @Modifying(clearAutomatically = true)
+    @Transactional
+    void deleteByIdAndOwner_Id(UUID id, UUID ownerId);
 }

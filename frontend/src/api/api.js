@@ -28,7 +28,7 @@ export function useApi() {
             headers: {
                 ...(options.headers || {}),
                 Authorization: accessToken ? `Bearer ${accessToken}` : null,
-                "Content-Type": (options.body && !options.headers?.["Content-Type"] && !(options.body instanceof FormData)) ? "application/json" : undefined,
+                "Content-Type": options.headers?.["Content-Type"]? options.headers?.["Content-Type"] : "application/json",
             },
             credentials: "include", // to include cookies
         });
