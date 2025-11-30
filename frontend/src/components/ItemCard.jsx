@@ -1,13 +1,19 @@
 import PropTypes from 'prop-types'
 import './ItemCard.css'
 
-export default function ItemCard({ item, onDelete }) {
+export default function ItemCard({ item, onDelete, selected = false, onToggleSelect }) {
   const handleDelete = () => {
     onDelete(item.id, item.name)
   }
 
   return (
     <div className="item-card">
+      {typeof onToggleSelect === 'function' && (
+        <label className="item-card-select">
+          <input type="checkbox" checked={!!selected} onChange={onToggleSelect} />
+        </label>
+      )}
+
       <button className="item-card-delete" onClick={handleDelete} title="Delete item">
         ×
       </button>
@@ -34,4 +40,6 @@ ItemCard.propTypes = {
     protein: PropTypes.number,
   }).isRequired,
   onDelete: PropTypes.func.isRequired,
+  selected: PropTypes.bool,
+  onToggleSelect: PropTypes.func,
 }

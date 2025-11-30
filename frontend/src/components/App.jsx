@@ -4,6 +4,7 @@ import Register from './Register'
 import Home from './Home'
 import TopBar from './TopBar'
 import ItemGrid from './ItemGrid'
+import RecipeGrid from './RecipeGrid'
 import { Routes, Route, useLocation } from 'react-router-dom'
 import ProtectedRoute from '../auth/ProtectedRoute.jsx'
 import GuestRoute from '../auth/GuestRoute.jsx'
@@ -22,6 +23,7 @@ function App() {
         <Route path="/signup" element={<GuestRoute><Register /></GuestRoute>} />
         <Route path="/home" element={<ProtectedRoute><Home /></ProtectedRoute>} />
         <Route path="/items" element={<ProtectedRoute><ItemGrid /></ProtectedRoute>} />
+        <Route path="/recipes" element={<ProtectedRoute><RecipeGrid /></ProtectedRoute>} />
       </Routes>
     </div>
   );

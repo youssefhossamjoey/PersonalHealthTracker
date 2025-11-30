@@ -41,7 +41,7 @@ public class FoodItemServiceImpl implements FoodItemService {
                 PageRequest.of(
                         pageable.getPageNumber(),
                         pageable.getPageSize(),
-                        pageable.getSortOr(Sort.by(Sort.Direction.ASC, "amount"))
+                        pageable.getSortOr(Sort.by(Sort.Direction.ASC, "name"))
                 ));
     }
 
@@ -54,5 +54,22 @@ public class FoodItemServiceImpl implements FoodItemService {
     @Override
     public void delete(UUID ownerId,UUID id) {
         foodItemRepository.deleteByIdAndOwner_Id(id,ownerId);
+    }
+
+    @Override
+    public void deleteBatch(UUID ownerId, List<UUID> ids) {
+        foodItemRepository.deleteAllByIdsAndOwner(ownerId, ids);
+    }
+
+    @Override
+    public Page<FoodItemEntity> findAll(UUID ownerId, String q, Pageable pageable) {
+        return foodItemRepository.search(
+                ownerId,
+                q,
+                PageRequest.of(
+                        pageable.getPageNumber(),
+                        pageable.getPageSize(),
+                        pageable.getSortOr(Sort.by(Sort.Direction.ASC, "name"))
+                ));
     }
 }

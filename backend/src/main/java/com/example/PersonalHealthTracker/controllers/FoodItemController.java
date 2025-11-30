@@ -7,6 +7,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
 import java.net.URI;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -55,21 +56,42 @@ public class FoodItemController {
     }
 
     @GetMapping
-    private ResponseEntity<Page<FoodItem>> findAll(Pageable pageable, @AuthenticationPrincipal UserAccountDetails user) {
-        Page<FoodItemEntity> page = foodItemService.findAll(
-                user.getId(),
-                PageRequest.of(
-                        pageable.getPageNumber(),
-                        pageable.getPageSize(),
-                        pageable.getSortOr(Sort.by(Sort.Direction.ASC, "name"))
-                ));
-        return ResponseEntity.ok(page.map(foodItemMapper::mapTo));
+    private ResponseEntity<Page<FoodItem>> findAll(Pageable pageable,
+                                                   @AuthenticationPrincipal UserAccountDetails user,
+                                                   @RequestParam(required = false) String search) {
+        if (search != null && !search.isEmpty()) {
+            Page<FoodItemEntity> page = foodItemService.findAll(
+                    user.getId(),
+                    search,
+                    PageRequest.of(
+                            pageable.getPageNumber(),
+                            pageable.getPageSize(),
+                            pageable.getSortOr(Sort.by(Sort.Direction.ASC, "name"))
+                    ));
+            return ResponseEntity.ok(page.map(foodItemMapper::mapTo));
+        } else {
+            Page<FoodItemEntity> page = foodItemService.findAll(
+                    user.getId(),
+                    PageRequest.of(
+                            pageable.getPageNumber(),
+                            pageable.getPageSize(),
+                            pageable.getSortOr(Sort.by(Sort.Direction.ASC, "name"))
+                    ));
+            return ResponseEntity.ok(page.map(foodItemMapper::mapTo));
+        }
+
 
     }
 
     @DeleteMapping(path = "/{id}")
     private ResponseEntity<Void> delete(@PathVariable("id") UUID id, @AuthenticationPrincipal UserAccountDetails user) {
         foodItemService.delete(user.getId(), id);
+        return ResponseEntity.noContent().build();
+    }
+
+    @DeleteMapping
+    private ResponseEntity<Void> Batchdelete(@RequestBody List<UUID> ids, @AuthenticationPrincipal UserAccountDetails user) {
+        foodItemService.deleteBatch(user.getId(), ids);
         return ResponseEntity.noContent().build();
     }
 }

@@ -10,6 +10,10 @@ export default function ItemGrid() {
     const [page, setPage] = useState(0)
     const [totalPages, setTotalPages] = useState(0)
     const [pageSize] = useState(20)
+    const [searchTerm, setSearchTerm] = useState('')
+    const [sortOption, setSortOption] = useState('')
+    const [selectedIds, setSelectedIds] = useState(new Set())
+    const [batchDeleteConfirm, setBatchDeleteConfirm] = useState(false)
     const [isModalOpen, setIsModalOpen] = useState(false)
     const [formData, setFormData] = useState({ itemName: '', kcal: '', protein: '' })
     const [submitError, setSubmitError] = useState('')
@@ -22,32 +26,26 @@ export default function ItemGrid() {
             try {
                 setLoading(true)
                 setError('')
-                // Use paginated endpoint with page and size params
-                const response = await api(`/api/fooditem?page=${page}&size=${pageSize}`);
+                // Build query params: page, size, optional search and sort
+                const searchParam = searchTerm ? `&search=${encodeURIComponent(searchTerm)}` : ''
+                const sortParam = sortOption ? `&sort=${encodeURIComponent(sortOption)}` : ''
+                const response = await api(`/api/fooditem?page=${page}&size=${pageSize}${searchParam}${sortParam}`);
                 if (!response) {
                     throw new Error(`Failed to fetch items: ${JSON.stringify(response)}`)
                 }
                 const data = await response
-                // Spring Boot paginated response structure
                 setItems(data.content || [])
                 setTotalPages(data.totalPages || 0)
             } catch (err) {
                 console.error('Error fetching items:', err)
                 setError(err.message || 'Failed to load items')
-                // Mock paginated data for development
-                setItems([
-                    { id: 1, itemName: 'Apple', kcal: 52, protein: 0.3 },
-                    { id: 2, itemName: 'Banana', kcal: 89, protein: 1.1 },
-                    { id: 3, itemName: 'Chicken Breast', kcal: 165, protein: 31 },
-                ])
-                setTotalPages(1)
             } finally {
                 setLoading(false)
             }
         }
 
         fetchItems()
-    }, [page, pageSize])
+    }, [page, pageSize, searchTerm, sortOption])
 
     const handleInputChange = (e) => {
         const { id, value } = e.target
@@ -67,16 +65,14 @@ export default function ItemGrid() {
             }
 
             try {
-                const response = await api('/api/fooditem', {
+                await api('/api/fooditem', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify(payload)
                 })
-            }
-            catch {
-
+            } catch {
                 throw new Error('Failed to create item')
             }
 
@@ -87,8 +83,10 @@ export default function ItemGrid() {
             // Refresh the grid - go back to first page to see new item
             setPage(0)
 
-            // Refetch items
-            const refreshResponse = await api(`/api/fooditem?page=0&size=${pageSize}`)
+            // Refetch items (respect current search and sort)
+            const refreshSearch = searchTerm ? `&search=${encodeURIComponent(searchTerm)}` : ''
+            const refreshSort = sortOption ? `&sort=${encodeURIComponent(sortOption)}` : ''
+            const refreshResponse = await api(`/api/fooditem?page=0&size=${pageSize}${refreshSearch}${refreshSort}`)
             if (refreshResponse) {
                 setItems(refreshResponse.content || [])
                 setTotalPages(refreshResponse.totalPages || 0)
@@ -116,12 +114,14 @@ export default function ItemGrid() {
             // Close confirm modal
             setDeleteConfirm({ show: false, itemId: null, itemName: '' })
 
-            // Refetch items to update the grid
-            const refreshResponse = await api(`/api/fooditem?page=${page}&size=${pageSize}`)
+            // Refetch items to update the grid (respect current search and sort)
+            const refreshSearch = searchTerm ? `&search=${encodeURIComponent(searchTerm)}` : ''
+            const refreshSort = sortOption ? `&sort=${encodeURIComponent(sortOption)}` : ''
+            const refreshResponse = await api(`/api/fooditem?page=${page}&size=${pageSize}${refreshSearch}${refreshSort}`)
             if (refreshResponse) {
                 setItems(refreshResponse.content || [])
                 setTotalPages(refreshResponse.totalPages || 0)
-                
+
                 // If current page is now empty and not the first page, go back one page
                 if (refreshResponse.content.length === 0 && page > 0) {
                     setPage(page - 1)
@@ -130,6 +130,57 @@ export default function ItemGrid() {
         } catch (err) {
             console.error('Error deleting item:', err)
             alert('Failed to delete item. Please try again.')
+        }
+    }
+
+    const toggleSelect = (id) => {
+        setSelectedIds(prev => {
+            const next = new Set(prev)
+            if (next.has(id)) next.delete(id)
+            else next.add(id)
+            return next
+        })
+    }
+
+    const selectAllOnPage = () => {
+        setSelectedIds(prev => {
+            const next = new Set(prev)
+            items.forEach(it => next.add(it.id))
+            return next
+        })
+    }
+
+    const clearSelection = () => setSelectedIds(new Set())
+
+    const handleBatchDelete = () => {
+        if (selectedIds.size === 0) return
+        setBatchDeleteConfirm(true)
+    }
+
+    const confirmBatchDelete = async () => {
+        try {
+            const idsArray = Array.from(selectedIds)
+            await api('/api/fooditem', {
+                method: 'DELETE',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(idsArray)
+            })
+
+            // Clear selection and refresh grid
+            clearSelection()
+            setBatchDeleteConfirm(false)
+            const refreshSearch = searchTerm ? `&search=${encodeURIComponent(searchTerm)}` : ''
+            const refreshSort = sortOption ? `&sort=${encodeURIComponent(sortOption)}` : ''
+            const refreshResponse = await api(`/api/fooditem?page=${page}&size=${pageSize}${refreshSearch}${refreshSort}`)
+            if (refreshResponse) {
+                setItems(refreshResponse.content || [])
+                setTotalPages(refreshResponse.totalPages || 0)
+                if (refreshResponse.content.length === 0 && page > 0) setPage(page - 1)
+            }
+        } catch (err) {
+            console.error('Batch delete failed', err)
+            alert('Failed to delete selected items.')
+            setBatchDeleteConfirm(false)
         }
     }
 
@@ -151,11 +202,13 @@ export default function ItemGrid() {
                         type="text"
                         placeholder="Search items..."
                         className="search-input"
+                        value={searchTerm}
+                        onChange={(e) => { setSearchTerm(e.target.value); setPage(0); }}
                     />
                 </div>
 
                 <div className="item-grid-actions">
-                    <select className="sort-select">
+                    <select className="sort-select" value={sortOption} onChange={(e) => { setSortOption(e.target.value); setPage(0); }}>
                         <option value="">Sort by...</option>
                         <option value="name">Name</option>
                         <option value="kcal">Calories</option>
@@ -164,6 +217,14 @@ export default function ItemGrid() {
 
                     <button className="create-btn" onClick={() => setIsModalOpen(true)}>
                         + Create Item
+                    </button>
+
+                    <button className="select-all-btn" onClick={selectAllOnPage} title="Select all visible">
+                        Select all
+                    </button>
+
+                    <button className="batch-delete-btn" onClick={handleBatchDelete} disabled={selectedIds.size === 0}>
+                        Delete Selected ({selectedIds.size})
                     </button>
                 </div>
             </div>
@@ -247,26 +308,33 @@ export default function ItemGrid() {
             {!loading && items.length > 0 && (
                 <div className="item-grid">
                     {items.map((item) => (
-                        <ItemCard key={item.id} item={item} onDelete={showDeleteConfirm} />
+                        <div key={item.id} className="item-grid-row">
+                            <ItemCard
+                                item={item}
+                                onDelete={showDeleteConfirm}
+                                selected={selectedIds.has(item.id)}
+                                onToggleSelect={() => toggleSelect(item.id)}
+                            />
+                        </div>
                     ))}
                 </div>
             )}
-            
+
             {deleteConfirm.show && (
                 <div className="modal-overlay" onClick={cancelDelete}>
                     <div className="confirm-modal" onClick={(e) => e.stopPropagation()}>
                         <div className="confirm-icon">⚠️</div>
                         <h3 className="confirm-title">Delete Item?</h3>
                         <p className="confirm-message">
-                            Are you sure you want to delete "<strong>{deleteConfirm.itemName}</strong>"? 
+                            Are you sure you want to delete "<strong>{deleteConfirm.itemName}</strong>"?
                             This action cannot be undone.
                         </p>
                         <div className="confirm-actions">
                             <button className="btn-confirm-cancel" onClick={cancelDelete}>
                                 Cancel
                             </button>
-                            <button 
-                                className="btn-confirm-delete" 
+                            <button
+                                className="btn-confirm-delete"
                                 onClick={() => handleDelete(deleteConfirm.itemId)}
                             >
                                 Delete
@@ -275,7 +343,29 @@ export default function ItemGrid() {
                     </div>
                 </div>
             )}
-            
+            {batchDeleteConfirm && (
+                <div className="modal-overlay" onClick={() => setBatchDeleteConfirm(false)}>
+                    <div className="confirm-modal" onClick={(e) => e.stopPropagation()}>
+                        <div className="confirm-icon">⚠️</div>
+                        <h3 className="confirm-title">Delete Selected Items?</h3>
+                        <p className="confirm-message">
+                            Are you sure you want to delete <strong>{selectedIds.size}</strong> selected item(s)? This action cannot be undone.
+                        </p>
+                        <div className="confirm-actions">
+                            <button className="btn-confirm-cancel" onClick={() => setBatchDeleteConfirm(false)}>
+                                Cancel
+                            </button>
+                            <button
+                                className="btn-confirm-delete"
+                                onClick={confirmBatchDelete}
+                            >
+                                Delete Selected
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
+
             {totalPages > 1 && (
                 <div className="item-grid-pagination">
                     <button

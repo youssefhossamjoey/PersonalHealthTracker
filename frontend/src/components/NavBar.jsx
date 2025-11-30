@@ -20,13 +20,15 @@ const NavBar = () => {
                 Ingredient
             </Button>
             <Button
+                component={Link}
+                to="/recipes"
                 variant="contained"
                 startIcon={<RestaurantIcon />}
                 disableRipple
                 disableElevation
-                className="nav-button"
+                className={`nav-button ${location.pathname === '/recipes' ? 'nav-button-active' : ''}`}
             >
-                Ingredient
+                Recipe
             </Button>
             <Button
                 variant="contained"
@@ -35,7 +37,7 @@ const NavBar = () => {
                 disableElevation
                 className="nav-button"
             >
-                Ingredient
+                Meal
             </Button>
         </Box>
     );

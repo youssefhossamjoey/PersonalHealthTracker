@@ -3,6 +3,7 @@ package com.example.personalhealthtracker.services;
 import com.example.personalhealthtracker.domain.dto.FoodItem;
 import com.example.personalhealthtracker.domain.entities.FoodItemEntity;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 
@@ -23,4 +24,7 @@ public interface FoodItemService {
 
     void delete(UUID ownerId,UUID id);
 
+    void deleteBatch(UUID ownerId,List<UUID> ids);
+
+    Page<FoodItemEntity> findAll(UUID id, String q, Pageable name);
 }
