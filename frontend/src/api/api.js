@@ -1,6 +1,7 @@
 import { useAuth } from "../auth/AuthContext";
-const BASE_URL = "http://localhost:8080"; // your backend URL
 import { useNavigate } from 'react-router-dom';
+
+const BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:8080";
 
 export function useApi() {
     const { accessToken, setAccessToken } = useAuth();

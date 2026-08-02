@@ -1,5 +1,6 @@
 import { createContext, useContext, useState,useEffect,useRef } from "react";
 
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:8080";
 const AuthContext = createContext();
 
 export function AuthProvider({ children }) {
@@ -12,7 +13,7 @@ export function AuthProvider({ children }) {
             initializedRef.current = true;
         async function initializeAuth() {
             try {
-                const res = await fetch("http://localhost:8080/api/v1/auth/refresh", {
+                const res = await fetch(`${API_BASE_URL}/api/v1/auth/refresh`, {
                     method: "POST",
                     credentials: "include", // send HttpOnly refresh cookie
                 });
