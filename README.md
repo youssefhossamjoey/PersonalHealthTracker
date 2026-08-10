@@ -280,4 +280,4 @@ aws cloudformation delete-stack --stack-name PersonalHealthTrackerStack
 
 ## License
 
-Add your license information here.
+This project is licensed under the [GNU General Public License v3.0](LICENSE) (GPLv3). See the [`LICENSE`](LICENSE) file for the full text.
