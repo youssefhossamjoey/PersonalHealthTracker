@@ -5,6 +5,7 @@ import com.example.personalhealthtracker.security.JwtAuthenticationFilter;
 import com.example.personalhealthtracker.security.UserAccountDetails;
 import com.example.personalhealthtracker.security.UserAccountDetailsService;
 import com.example.personalhealthtracker.services.AuthenticationService;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -23,12 +24,14 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 
+import java.util.Arrays;
 import java.util.List;
 
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig {
-
+    @Value("${app.cors.allowed-origins}")
+    private String allowedOrigins;
     @Bean
     public JwtAuthenticationFilter jwtAuthenticationFilter(AuthenticationService authenticationService){
         return new JwtAuthenticationFilter(authenticationService);
@@ -44,15 +47,19 @@ public class WebSecurityConfig {
         http
                 .cors(cors -> cors.configurationSource(request -> {
                     var corsConfig = new CorsConfiguration();
-                    corsConfig.setAllowedOrigins(List.of("http://localhost:3000"));
+                    corsConfig.setAllowedOrigins(Arrays.asList(allowedOrigins.split(",")));
                     corsConfig.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
                     corsConfig.setAllowedHeaders(List.of("*"));
                     corsConfig.setAllowCredentials(true);  // important because you use credentials: include
                     return corsConfig;
                 }))
                 .authorizeHttpRequests(auth -> auth
+                        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+
                         .requestMatchers(HttpMethod.POST,"/api/v1/auth/**").permitAll()
                         .requestMatchers(HttpMethod.GET,"/api/v1/auth/username-available").permitAll()
+
+                        .requestMatchers("/actuator/health", "/api/v1/health").permitAll()
                         .anyRequest().authenticated()
                 )
                 .csrf(csrf -> csrf.disable())
