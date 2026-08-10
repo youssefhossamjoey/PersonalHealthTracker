@@ -4,7 +4,9 @@ import { useApi } from "../api/api";
 import { apiRoutes } from "../api/auth";
 import { useAuth } from '../auth/AuthContext.jsx';
 import axios from 'axios'
+import logoLight from '../assets/Logo-light-theme.svg'
 import '../App.css'
+
 
 export default function Login() {
     const [username, setUsername] = useState('')
@@ -53,6 +55,7 @@ export default function Login() {
     return (
         <div className="login-root">
             <form className="login-card" onSubmit={handleLogin}>
+                <img src={logoLight} alt="Logo" className="login-logo-corner login-logo-light" />
                 <h2>Sign in</h2>
 
                 {error && <div className="login-error">{error}</div>}
@@ -79,7 +82,7 @@ export default function Login() {
                     />
                 </label>
 
-                <button type="submit" className="login-btn" disabled={false}>{/* simple disabled handling can be added */}
+                <button type="submit" className="login-btn" disabled={false}>
                     Sign in
                 </button>
 
@@ -91,5 +94,3 @@ export default function Login() {
     );
 
 }
-
-
