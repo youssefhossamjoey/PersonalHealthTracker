@@ -134,7 +134,7 @@ PersonalHealthTracker/
 │   ├── vite.config.js
 │   └── eslint.config.js
 └── infrastructure/
-    └── template.yaml          # CloudFormation stack definition
+    └── personalHealthTrackerProject-template.json          # CloudFormation stack definition
 ```
 
 ## Frontend Routes
@@ -211,7 +211,7 @@ The application is designed to run on AWS using a highly available, multi-AZ lay
 - **Auto Scaling Group (ASG) of EC2 instances** runs the Spring Boot backend in each private subnet, scaling based on load.
 - **Amazon RDS (PostgreSQL)** runs in the private subnets, deployed per AZ for redundancy and failover.
 
-
+![architecture](./PersonalHealthTracker-architecture.png)
 
 This layout keeps compute and database resources unreachable from the public internet, while NAT Gateways in each AZ allow outbound connectivity (e.g., patching, external API calls) from the private subnets, and the ALB provides a single, highly available entry point for backend API traffic.
 
@@ -259,7 +259,7 @@ aws s3 cp target/PersonalHealthTracker-0.0.1-SNAPSHOT.jar s3://$S3_BUCKET_NAME/b
 ```bash
 aws cloudformation create-stack \
   --stack-name PersonalHealthTrackerStack \
-  --template-body file://infrastructure/template.yaml \
+  --template-body file://infrastructure/personalHealthTrackerProject-template.json \
   --parameters ParameterKey=ArtifactBucket,ParameterValue=$S3_BUCKET_NAME \
   --capabilities CAPABILITY_IAM
 ```

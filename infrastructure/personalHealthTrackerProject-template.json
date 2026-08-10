@@ -1,0 +1,2246 @@
+{
+  "Metadata": {
+    "AWSToolsMetrics": {
+      "IaC_Generator": "arn:aws:cloudformation:us-east-1:256071447139:generatedTemplate/34270cc5-a49c-4f6a-a1db-d998922ef0c6"
+    }
+  },
+  "Parameters": {
+    "EC2LaunchTemplateLaunchTemplateDataEbsOptimizedOT874": {
+      "NoEcho": "true",
+      "Type": "String",
+      "Description": "Indicates whether the instance is optimized for Amazon EBS I/O. This optimization provides dedicated throughput to Amazon EBS and an optimized configuration stack to provide optimal Amazon EBS I/O performance. This optimization isn't available with all instance types. Additional usage charges apply when using an EBS-optimized instance."
+    },
+    "EC2LaunchTemplateLaunchTemplateDataInstanceRequirementsMemoryGiBPerVCpuMinWLWJJ": {
+      "NoEcho": "true",
+      "Type": "Number",
+      "Description": "The minimum amount of memory per vCPU, in GiB. To specify no minimum limit, omit this parameter."
+    },
+    "EC2LaunchTemplateLaunchTemplateDataInstanceRequirementsInstanceGenerationslp3pN": {
+      "NoEcho": "true",
+      "Type": "CommaDelimitedList",
+      "Description": "Indicates whether current or previous generation instance types are included. The current generation instance types are recommended for use. Current generation instance types are typically the latest two to three generations in each instance family. For more information, see [Instance types](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html) in the *Amazon EC2 User Guide*.\n For current generation instance types, specify ``current``.\n For previous generation instance types, specify ``previous``.\n Default: Current and previous generation instance types"
+    },
+    "EC2LaunchTemplateLaunchTemplateDataInstanceRequirementsMemoryGiBPerVCpuMaxcvlev": {
+      "NoEcho": "true",
+      "Type": "Number",
+      "Description": "The maximum amount of memory per vCPU, in GiB. To specify no maximum limit, omit this parameter."
+    },
+    "EC2LaunchTemplateLaunchTemplateDataMetadataOptionsHttpTokenswWOLz": {
+      "NoEcho": "true",
+      "Type": "String",
+      "Description": "Indicates whether IMDSv2 is required.\n  +  ``optional`` - IMDSv2 is optional. You can choose whether to send a session token in your instance metadata retrieval requests. If you retrieve IAM role credentials without a session token, you receive the IMDSv1 role credentials. If you retrieve IAM role credentials using a valid session token, you receive the IMDSv2 role credentials.\n  +  ``required`` - IMDSv2 is required. You must send a session token in your instance metadata retrieval requests. With this option, retrieving the IAM role credentials always returns IMDSv2 credentials; IMDSv1 credentials are not available.\n  \n Default: If the value of ``ImdsSupport`` for the Amazon Machine Image (AMI) for your instance is ``v2.0``, the default is ``required``."
+    },
+    "EC2LaunchTemplateLaunchTemplateDataSecurityGroupse59b1": {
+      "NoEcho": "true",
+      "Type": "CommaDelimitedList",
+      "Description": "The names of the security groups. For a nondefault VPC, you must use security group IDs instead.\n If you specify a network interface, you must specify any security groups as part of the network interface instead of using this parameter."
+    },
+    "EC2LaunchTemplateLaunchTemplateDataUserDatapRLTt": {
+      "NoEcho": "true",
+      "Type": "String",
+      "Description": "The user data to make available to the instance. You must provide base64-encoded text. User data is limited to 16 KB. For more information, see [Run commands when you launch an EC2 instance with user data input](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/user-data.html) in the *Amazon EC2 User Guide*.\n If you are creating the launch template for use with BATCH, the user data must be provided in the [MIME multi-part archive format](https://docs.aws.amazon.com/https://cloudinit.readthedocs.io/en/latest/topics/format.html#mime-multi-part-archive). For more information, see [Amazon EC2 user data in launch templates](https://docs.aws.amazon.com/batch/latest/userguide/launch-templates.html#lt-user-data) in the *User Guide*."
+    },
+    "EC2LaunchTemplateLaunchTemplateDataPlacementHostResourceGroupArnYOMMb": {
+      "NoEcho": "true",
+      "Type": "String",
+      "Description": "The ARN of the host resource group in which to launch the instances. If you specify a host resource group ARN, omit the *Tenancy* parameter or set it to ``host``."
+    },
+    "EC2LaunchTemplateLaunchTemplateDataCapacityReservationSpecificationCapacityReservationTargetCapacityReservationIdwK461": {
+      "NoEcho": "true",
+      "Type": "String",
+      "Description": "The ID of the Capacity Reservation in which to run the instance."
+    },
+    "EC2LaunchTemplateLaunchTemplateDataInstanceMarketOptionsSpotOptionsValidUntil04AbK": {
+      "NoEcho": "true",
+      "Type": "String",
+      "Description": "The end date of the request, in UTC format (*YYYY-MM-DD*T*HH:MM:SS*Z). Supported only for persistent requests.\n  +  For a persistent request, the request remains active until the ``ValidUntil`` date and time is reached. Otherwise, the request remains active until you cancel it.\n  +  For a one-time request, ``ValidUntil`` is not supported. The request remains active until all instances launch or you cancel the request.\n  \n Default: 7 days from the current date"
+    },
+    "EC2LaunchTemplateLaunchTemplateDataMaintenanceOptionsAutoRecoveryz9rTH": {
+      "NoEcho": "true",
+      "Type": "String",
+      "Description": "Disables the automatic recovery behavior of your instance or sets it to default."
+    },
+    "EC2LaunchTemplateLaunchTemplateDataDisableApiStopmDh2t": {
+      "NoEcho": "true",
+      "Type": "String",
+      "Description": "Indicates whether to enable the instance for stop protection. For more information, see [Enable stop protection for your EC2 instances](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-stop-protection.html) in the *Amazon EC2 User Guide*."
+    },
+    "EC2LaunchTemplateLaunchTemplateDataImageIdF5WMp": {
+      "NoEcho": "true",
+      "Type": "String",
+      "Description": "The ID of the AMI. Alternatively, you can specify a Systems Manager parameter, which will resolve to an AMI ID on launch.\n Valid formats:\n  +   ``ami-0ac394d6a3example`` \n  +   ``resolve:ssm:parameter-name`` \n  +   ``resolve:ssm:parameter-name:version-number`` \n  +   ``resolve:ssm:parameter-name:label`` \n  \n For more information, see [Use a Systems Manager parameter to find an AMI](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/finding-an-ami.html#using-systems-manager-parameter-to-find-AMI) in the *Amazon Elastic Compute Cloud User Guide*."
+    },
+    "EC2LaunchTemplateLaunchTemplateDataInstanceType5gpL0": {
+      "NoEcho": "true",
+      "Type": "String",
+      "Description": "The instance type. For more information, see [Amazon EC2 instance types](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/instance-types.html) in the *Amazon EC2 User Guide*.\n If you specify ``InstanceType``, you can't specify ``InstanceRequirements``."
+    },
+    "EC2LaunchTemplateLaunchTemplateDataPlacementHostIdoPxUf": {
+      "NoEcho": "true",
+      "Type": "String",
+      "Description": "The ID of the Dedicated Host for the instance."
+    },
+    "EC2LaunchTemplateLaunchTemplateDataCpuOptionsNestedVirtualizationZakdL": {
+      "NoEcho": "true",
+      "Type": "String",
+      "Description": "Indicates whether the instance is enabled for nested virtualization.Possible values: [enabled, disabled]\nThis property can be replaced with other types"
+    },
+    "EC2LaunchTemplateLaunchTemplateDataInstanceRequirementsCpuManufacturersAR7Em": {
+      "NoEcho": "true",
+      "Type": "CommaDelimitedList",
+      "Description": "The CPU manufacturers to include.\n  +  For instance types with Intel CPUs, specify ``intel``.\n  +  For instance types with AMD CPUs, specify ``amd``.\n  +  For instance types with AWS CPUs, specify ``amazon-web-services``.\n  +  For instance types with Apple CPUs, specify ``apple``.\n  \n  Don't confuse the CPU manufacturer with the CPU architecture. Instances will be launched with a compatible CPU architecture based on the Amazon Machine Image (AMI) that you specify in your launch template.\n  Default: Any manufacturer"
+    },
+    "EC2LaunchTemplateLaunchTemplateDataInstanceRequirementsBaselineEbsBandwidthMbpsMintYYAQ": {
+      "NoEcho": "true",
+      "Type": "Number",
+      "Description": "The minimum baseline bandwidth, in Mbps. To specify no minimum limit, omit this parameter."
+    },
+    "EC2LaunchTemplateLaunchTemplateDataInstanceRequirementsAllowedInstanceTypesuuqkJ": {
+      "NoEcho": "true",
+      "Type": "CommaDelimitedList",
+      "Description": "The instance types to apply your specified attributes against. All other instance types are ignored, even if they match your specified attributes.\n You can use strings with one or more wild cards, represented by an asterisk (``*``), to allow an instance type, size, or generation. The following are examples: ``m5.8xlarge``, ``c5*.*``, ``m5a.*``, ``r*``, ``*3*``.\n For example, if you specify ``c5*``,Amazon EC2 will allow the entire C5 instance family, which includes all C5a and C5n instance types. If you specify ``m5a.*``, Amazon EC2 will allow all the M5a instance types, but not the M5n instance types.\n  If you specify ``AllowedInstanceTypes``, you can't specify ``ExcludedInstanceTypes``.\n  Default: All instance types"
+    },
+    "EC2LaunchTemplateLaunchTemplateDataInstanceMarketOptionsSpotOptionsBlockDurationMinutesk8FEu": {
+      "NoEcho": "true",
+      "Type": "Number",
+      "Description": "Deprecated."
+    },
+    "EC2LaunchTemplateLaunchTemplateDataInstanceRequirementsAcceleratorCountMin7YEuG": {
+      "NoEcho": "true",
+      "Type": "Number",
+      "Description": "The minimum number of accelerators. To specify no minimum limit, omit this parameter."
+    },
+    "EC2LaunchTemplateLaunchTemplateDataPlacementAvailabilityZoneoSlDw": {
+      "NoEcho": "true",
+      "Type": "String",
+      "Description": "The Availability Zone for the instance.\n Either ``AvailabilityZone`` or ``AvailabilityZoneId`` can be specified, but not both"
+    },
+    "EC2LaunchTemplateLaunchTemplateDataInstanceRequirementsRequireHibernateSupportOgsfQ": {
+      "NoEcho": "true",
+      "Type": "String",
+      "Description": "Indicates whether instance types must support hibernation for On-Demand Instances.\n This parameter is not supported for [GetSpotPlacementScores](https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_GetSpotPlacementScores.html).\n Default: ``false``"
+    },
+    "EC2LaunchTemplateLaunchTemplateDataMetadataOptionsHttpProtocolIpv6R5Gqz": {
+      "NoEcho": "true",
+      "Type": "String",
+      "Description": "Enables or disables the IPv6 endpoint for the instance metadata service.\n Default: ``disabled``"
+    },
+    "EC2LaunchTemplateLaunchTemplateDataInstanceRequirementsVCpuCountMaxVcnrG": {
+      "NoEcho": "true",
+      "Type": "Number",
+      "Description": "The maximum number of vCPUs. To specify no maximum limit, omit this parameter."
+    },
+    "EC2LaunchTemplateLaunchTemplateDataInstanceRequirementsNetworkBandwidthGbpsMaxRNiPt": {
+      "NoEcho": "true",
+      "Type": "Number",
+      "Description": "The maximum amount of network bandwidth, in Gbps. To specify no maximum limit, omit this parameter."
+    },
+    "EC2LaunchTemplateLaunchTemplateDataPlacementSpreadDomainAmxHt": {
+      "NoEcho": "true",
+      "Type": "String",
+      "Description": "Reserved for future use."
+    },
+    "EC2LaunchTemplateLaunchTemplateDataInstanceRequirementsNetworkBandwidthGbpsMincQrBp": {
+      "NoEcho": "true",
+      "Type": "Number",
+      "Description": "The minimum amount of network bandwidth, in Gbps. If this parameter is not specified, there is no minimum limit."
+    },
+    "EC2LaunchTemplateLaunchTemplateDataIamInstanceProfileNameRVrWv": {
+      "NoEcho": "true",
+      "Type": "String",
+      "Description": "The name of the instance profile."
+    },
+    "EC2LaunchTemplateLaunchTemplateDataCpuOptionsAmdSevSnprE7jw": {
+      "NoEcho": "true",
+      "Type": "String",
+      "Description": "Indicates whether to enable the instance for AMD SEV-SNP. AMD SEV-SNP is supported with M6a, R6a, and C6a instance types only. For more information, see [AMD SEV-SNP for Amazon EC2 instances](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/sev-snp.html).Possible values: [enabled, disabled]\nThis property can be replaced with other types"
+    },
+    "EC2LaunchTemplateLaunchTemplateDataInstanceMarketOptionsSpotOptionsInstanceInterruptionBehaviorwfP3B": {
+      "NoEcho": "true",
+      "Type": "String",
+      "Description": "The behavior when a Spot Instance is interrupted. The default is ``terminate``."
+    },
+    "EC2LaunchTemplateLaunchTemplateDataInstanceRequirementsAcceleratorNames6N5pN": {
+      "NoEcho": "true",
+      "Type": "CommaDelimitedList",
+      "Description": "The accelerators that must be on the instance type.\n  +  For instance types with NVIDIA A10G GPUs, specify ``a10g``.\n  +  For instance types with NVIDIA A100 GPUs, specify ``a100``.\n  +  For instance types with NVIDIA H100 GPUs, specify ``h100``.\n  +  For instance types with AWS Inferentia chips, specify ``inferentia``.\n  +  For instance types with AWS Inferentia2 chips, specify ``inferentia2``.\n  +  For instance types with Habana Gaudi HL-205 GPUs, specify ``gaudi-hl-205``.\n  +  For instance types with NVIDIA GRID K520 GPUs, specify ``k520``.\n  +  For instance types with NVIDIA K80 GPUs, specify ``k80``.\n  +  For instance types with NVIDIA L4 GPUs, specify ``l4``.\n  +  For instance types with NVIDIA L40S GPUs, specify ``l40s``.\n  +  For instance types with NVIDIA M60 GPUs, specify ``m60``.\n  +  For instance types with AMD Radeon Pro V520 GPUs, specify ``radeon-pro-v520``.\n  +  For instance types with AWS Trainium chips, specify ``trainium``.\n  +  For instance types with AWS Trainium2 chips, specify ``trainium2``.\n  +  For instance types with NVIDIA T4 GPUs, specify ``t4``.\n  +  For instance types with NVIDIA T4G GPUs, specify ``t4g``.\n  +  For instance types with Xilinx U30 cards, specify ``u30``.\n  +  For instance types with Xilinx VU9P FPGAs, specify ``vu9p``.\n  +  For instance types with NVIDIA V100 GPUs, specify ``v100``.\n  \n Default: Any accelerator"
+    },
+    "EC2LaunchTemplateLaunchTemplateDataPlacementPartitionNumbergqb7V": {
+      "NoEcho": "true",
+      "Type": "Number",
+      "Description": "The number of the partition the instance should launch in. Valid only if the placement group strategy is set to ``partition``."
+    },
+    "EC2LaunchTemplateLaunchTemplateDataSecurityGroupIdsjpLsz": {
+      "NoEcho": "true",
+      "Type": "CommaDelimitedList",
+      "Description": "The IDs of the security groups. You can specify the IDs of existing security groups and references to resources created by the stack template.\n If you specify a network interface, you must specify any security groups as part of the network interface instead."
+    },
+    "EC2LaunchTemplateLaunchTemplateDataPrivateDnsNameOptionsHostnameTypelN4Rg": {
+      "NoEcho": "true",
+      "Type": "String",
+      "Description": "The type of hostname for EC2 instances. For IPv4 only subnets, an instance DNS name must be based on the instance IPv4 address. For IPv6 only subnets, an instance DNS name must be based on the instance ID. For dual-stack subnets, you can specify whether DNS names use the instance IPv4 address or the instance ID. For more information, see [Amazon EC2 instance hostname types](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-naming.html) in the *User Guide*."
+    },
+    "EC2LaunchTemplateLaunchTemplateDataPlacementGroupIdh1tKI": {
+      "NoEcho": "true",
+      "Type": "String",
+      "Description": "The Group Id of a placement group. You must specify the Placement Group *Group Id* to launch an instance in a shared placement group."
+    },
+    "EC2LaunchTemplateLaunchTemplateDataNetworkPerformanceOptionsBandwidthWeightingLWwfV": {
+      "NoEcho": "true",
+      "Type": "String",
+      "Description": "Specify the bandwidth weighting option to boost the associated type of baseline bandwidth, as follows:\n  + default This option uses the standard bandwidth configuration for your instance type. + vpc-1 This option boosts your networking baseline bandwidth and reduces your EBS baseline bandwidth. + ebs-1 This option boosts your EBS baseline bandwidth and reduces your networking baseline bandwidth."
+    },
+    "EC2LaunchTemplateLaunchTemplateDataInstanceMarketOptionsSpotOptionsSpotInstanceTypecOb7G": {
+      "NoEcho": "true",
+      "Type": "String",
+      "Description": "The Spot Instance request type.\n If you are using Spot Instances with an Auto Scaling group, use ``one-time`` requests, as the ASlong service handles requesting new Spot Instances whenever the group is below its desired capacity."
+    },
+    "EC2LaunchTemplateLaunchTemplateDataInstanceRequirementsMemoryMiBMaxNXia3": {
+      "NoEcho": "true",
+      "Type": "Number",
+      "Description": "The maximum amount of memory, in MiB. To specify no maximum limit, omit this parameter."
+    },
+    "EC2LaunchTemplateLaunchTemplateDataInstanceRequirementsTotalLocalStorageGBMaxs8AaS": {
+      "NoEcho": "true",
+      "Type": "Number",
+      "Description": "The maximum amount of total local storage, in GB. To specify no maximum limit, omit this parameter."
+    },
+    "EC2LaunchTemplateLaunchTemplateDataInstanceRequirementsSpotMaxPricePercentageOverLowestPricezKO3a": {
+      "NoEcho": "true",
+      "Type": "Number",
+      "Description": "[Price protection] The price protection threshold for Spot Instances, as a percentage higher than an identified Spot price. The identified Spot price is the Spot price of the lowest priced current generation C, M, or R instance type with your specified attributes. If no current generation C, M, or R instance type matches your attributes, then the identified Spot price is from the lowest priced current generation instance types, and failing that, from the lowest priced previous generation instance types that match your attributes. When Amazon EC2 selects instance types with your attributes, it will exclude instance types whose Spot price exceeds your specified threshold.\n The parameter accepts an integer, which Amazon EC2 interprets as a percentage.\n If you set ``TargetCapacityUnitType`` to ``vcpu`` or ``memory-mib``, the price protection threshold is applied based on the per-vCPU or per-memory price instead of the per-instance price.\n This parameter is not supported for [GetSpotPlacementScores](https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_GetSpotPlacementScores.html) and [GetInstanceTypesFromInstanceRequirements](https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_GetInstanceTypesFromInstanceRequirements.html).\n  Only one of ``SpotMaxPricePercentageOverLowestPrice`` or ``MaxSpotPriceAsPercentageOfOptimalOnDemandPrice`` can be specified. If you don't specify either, Amazon EC2 will automatically apply optimal price protection to consistently select from a wide range of instance types. To indicate no price protection threshold for Spot Instances, meaning you want to consider all instance types that match your attributes, include one of these parameters and specify a high value, such as ``999999``.\n  Default: ``100``"
+    },
+    "EC2LaunchTemplateLaunchTemplateDataInstanceRequirementsBurstablePerformanceHKdDJ": {
+      "NoEcho": "true",
+      "Type": "String",
+      "Description": "Indicates whether burstable performance T instance types are included, excluded, or required. For more information, see [Burstable performance instances](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/burstable-performance-instances.html).\n  +  To include burstable performance instance types, specify ``included``.\n  +  To require only burstable performance instance types, specify ``required``.\n  +  To exclude burstable performance instance types, specify ``excluded``.\n  \n Default: ``excluded``"
+    },
+    "EC2LaunchTemplateLaunchTemplateDataInstanceRequirementsAcceleratorManufacturersxrfLV": {
+      "NoEcho": "true",
+      "Type": "CommaDelimitedList",
+      "Description": "Indicates whether instance types must have accelerators by specific manufacturers.\n  +  For instance types with AWS devices, specify ``amazon-web-services``.\n  +  For instance types with AMD devices, specify ``amd``.\n  +  For instance types with Habana devices, specify ``habana``.\n  +  For instance types with NVIDIA devices, specify ``nvidia``.\n  +  For instance types with Xilinx devices, specify ``xilinx``.\n  \n Default: Any manufacturer"
+    },
+    "EC2LaunchTemplateLaunchTemplateDataInstanceRequirementsMemoryMiBMinU7Nx2": {
+      "NoEcho": "true",
+      "Type": "Number",
+      "Description": "The minimum amount of memory, in MiB. To specify no minimum limit, specify ``0``."
+    },
+    "EC2LaunchTemplateLaunchTemplateDataInstanceMarketOptionsSpotOptionsMaxPrice9bLRb": {
+      "NoEcho": "true",
+      "Type": "String",
+      "Description": "The maximum hourly price you're willing to pay for a Spot Instance. We do not recommend using this parameter because it can lead to increased interruptions. If you do not specify this parameter, you will pay the current Spot price. If you do specify this parameter, it must be more than USD $0.001. Specifying a value below USD $0.001 will result in an ``InvalidParameterValue`` error message when the launch template is used to launch an instance.\n  If you specify a maximum price, your Spot Instances will be interrupted more frequently than if you do not specify this parameter."
+    },
+    "EC2LaunchTemplateLaunchTemplateDataInstanceRequirementsBaselineEbsBandwidthMbpsMaxxtzE2": {
+      "NoEcho": "true",
+      "Type": "Number",
+      "Description": "The maximum baseline bandwidth, in Mbps. To specify no maximum limit, omit this parameter."
+    },
+    "EC2LaunchTemplateLaunchTemplateDataCreditSpecificationCpuCreditsaCgY6": {
+      "NoEcho": "true",
+      "Type": "String",
+      "Description": "The credit option for CPU usage of a T instance.\n Valid values: ``standard`` | ``unlimited``"
+    },
+    "EC2LaunchTemplateLaunchTemplateDataInstanceRequirementsNetworkInterfaceCountMaxy7sho": {
+      "NoEcho": "true",
+      "Type": "Number",
+      "Description": "The maximum number of network interfaces. To specify no maximum limit, omit this parameter."
+    },
+    "EC2LaunchTemplateLaunchTemplateDataPrivateDnsNameOptionsEnableResourceNameDnsARecorduGch9": {
+      "NoEcho": "true",
+      "Type": "String",
+      "Description": "Indicates whether to respond to DNS queries for instance hostnames with DNS A records."
+    },
+    "EC2LaunchTemplateLaunchTemplateDataMetadataOptionsInstanceMetadataTagsJ4umG": {
+      "NoEcho": "true",
+      "Type": "String",
+      "Description": "Set to ``enabled`` to allow access to instance tags from the instance metadata. Set to ``disabled`` to turn off access to instance tags from the instance metadata. For more information, see [View tags for your EC2 instances using instance metadata](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/work-with-tags-in-IMDS.html).\n Default: ``disabled``"
+    },
+    "EC2LaunchTemplateLaunchTemplateDataMetadataOptionsHttpPutResponseHopLimitI8TBu": {
+      "NoEcho": "true",
+      "Type": "Number",
+      "Description": "The desired HTTP PUT response hop limit for instance metadata requests. The larger the number, the further instance metadata requests can travel.\n Default: ``1``\n Possible values: Integers from 1 to 64"
+    },
+    "EC2LaunchTemplateLaunchTemplateDataKernelIdolJ7y": {
+      "NoEcho": "true",
+      "Type": "String",
+      "Description": "The ID of the kernel.\n We recommend that you use PV-GRUB instead of kernels and RAM disks. For more information, see [User Provided Kernels](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/UserProvidedkernels.html) in the *Amazon EC2 User Guide*."
+    },
+    "EC2LaunchTemplateLaunchTemplateDataRamDiskIdZgI5g": {
+      "NoEcho": "true",
+      "Type": "String",
+      "Description": "The ID of the RAM disk.\n  We recommend that you use PV-GRUB instead of kernels and RAM disks. For more information, see [User provided kernels](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/UserProvidedkernels.html) in the *Amazon EC2 User Guide*."
+    },
+    "EC2LaunchTemplateLaunchTemplateDataInstanceRequirementsExcludedInstanceTypeso4jaX": {
+      "NoEcho": "true",
+      "Type": "CommaDelimitedList",
+      "Description": "The instance types to exclude.\n You can use strings with one or more wild cards, represented by an asterisk (``*``), to exclude an instance type, size, or generation. The following are examples: ``m5.8xlarge``, ``c5*.*``, ``m5a.*``, ``r*``, ``*3*``.\n For example, if you specify ``c5*``,Amazon EC2 will exclude the entire C5 instance family, which includes all C5a and C5n instance types. If you specify ``m5a.*``, Amazon EC2 will exclude all the M5a instance types, but not the M5n instance types.\n  If you specify ``ExcludedInstanceTypes``, you can't specify ``AllowedInstanceTypes``.\n  Default: No excluded instance types"
+    },
+    "EC2LaunchTemplateLaunchTemplateDataInstanceRequirementsVCpuCountMinEeeNA": {
+      "NoEcho": "true",
+      "Type": "Number",
+      "Description": "The minimum number of vCPUs. To specify no minimum limit, specify ``0``."
+    },
+    "EC2LaunchTemplateLaunchTemplateDataPrivateDnsNameOptionsEnableResourceNameDnsAAAARecordW3gj8": {
+      "NoEcho": "true",
+      "Type": "String",
+      "Description": "Indicates whether to respond to DNS queries for instance hostnames with DNS AAAA records."
+    },
+    "EC2LaunchTemplateLaunchTemplateDataInstanceRequirementsAcceleratorCountMaxmCbCm": {
+      "NoEcho": "true",
+      "Type": "Number",
+      "Description": "The maximum number of accelerators. To specify no maximum limit, omit this parameter. To exclude accelerator-enabled instance types, set ``Max`` to ``0``."
+    },
+    "EC2LaunchTemplateLaunchTemplateDataInstanceRequirementsOnDemandMaxPricePercentageOverLowestPricepSPsO": {
+      "NoEcho": "true",
+      "Type": "Number",
+      "Description": "[Price protection] The price protection threshold for On-Demand Instances, as a percentage higher than an identified On-Demand price. The identified On-Demand price is the price of the lowest priced current generation C, M, or R instance type with your specified attributes. When Amazon EC2 selects instance types with your attributes, it will exclude instance types whose price exceeds your specified threshold.\n The parameter accepts an integer, which Amazon EC2 interprets as a percentage.\n To turn off price protection, specify a high value, such as ``999999``.\n This parameter is not supported for [GetSpotPlacementScores](https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_GetSpotPlacementScores.html) and [GetInstanceTypesFromInstanceRequirements](https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_GetInstanceTypesFromInstanceRequirements.html).\n  If you set ``TargetCapacityUnitType`` to ``vcpu`` or ``memory-mib``, the price protection threshold is applied based on the per-vCPU or per-memory price instead of the per-instance price.\n  Default: ``20``"
+    },
+    "EC2LaunchTemplateLaunchTemplateDataInstanceRequirementsNetworkInterfaceCountMinmVN1P": {
+      "NoEcho": "true",
+      "Type": "Number",
+      "Description": "The minimum number of network interfaces. To specify no minimum limit, omit this parameter."
+    },
+    "EC2LaunchTemplateLaunchTemplateDataInstanceMarketOptionsMarketTypeKKl0m": {
+      "NoEcho": "true",
+      "Type": "String",
+      "Description": "The market type."
+    },
+    "EC2LaunchTemplateLaunchTemplateDataPlacementTenancydhIja": {
+      "NoEcho": "true",
+      "Type": "String",
+      "Description": "The tenancy of the instance. An instance with a tenancy of dedicated runs on single-tenant hardware."
+    },
+    "EC2LaunchTemplateLaunchTemplateDataDisableApiTerminationGFh5B": {
+      "NoEcho": "true",
+      "Type": "String",
+      "Description": "Indicates whether termination protection is enabled for the instance. The default is ``false``, which means that you can terminate the instance using the Amazon EC2 console, command line tools, or API. You can enable termination protection when you launch an instance, while the instance is running, or while the instance is stopped."
+    },
+    "EC2LaunchTemplateLaunchTemplateDataInstanceRequirementsAcceleratorTotalMemoryMiBMaxmr3TU": {
+      "NoEcho": "true",
+      "Type": "Number",
+      "Description": "The maximum amount of accelerator memory, in MiB. To specify no maximum limit, omit this parameter."
+    },
+    "EC2LaunchTemplateLaunchTemplateDataInstanceRequirementsBareMetal0bHbS": {
+      "NoEcho": "true",
+      "Type": "String",
+      "Description": "Indicates whether bare metal instance types must be included, excluded, or required.\n  +  To include bare metal instance types, specify ``included``.\n  +  To require only bare metal instance types, specify ``required``.\n  +  To exclude bare metal instance types, specify ``excluded``.\n  \n Default: ``excluded``"
+    },
+    "EC2LaunchTemplateLaunchTemplateDataCpuOptionsThreadsPerCoreAV7Rl": {
+      "NoEcho": "true",
+      "Type": "Number",
+      "Description": "The number of threads per CPU core. To disable multithreading for the instance, specify a value of ``1``. Otherwise, specify the default value of ``2``."
+    },
+    "EC2LaunchTemplateLaunchTemplateDataPlacementGroupNameiXrDo": {
+      "NoEcho": "true",
+      "Type": "String",
+      "Description": "The name of the placement group for the instance."
+    },
+    "EC2LaunchTemplateLaunchTemplateDataInstanceRequirementsAcceleratorTotalMemoryMiBMinkaEKP": {
+      "NoEcho": "true",
+      "Type": "Number",
+      "Description": "The minimum amount of accelerator memory, in MiB. To specify no minimum limit, omit this parameter."
+    },
+    "EC2LaunchTemplateLaunchTemplateDataInstanceRequirementsAcceleratorTypesfntR4": {
+      "NoEcho": "true",
+      "Type": "CommaDelimitedList",
+      "Description": "The accelerator types that must be on the instance type.\n  +  For instance types with FPGA accelerators, specify ``fpga``.\n  +  For instance types with GPU accelerators, specify ``gpu``.\n  +  For instance types with Inference accelerators, specify ``inference``.\n  +  For instance types with Media accelerators, specify ``media``.\n  \n Default: Any accelerator type"
+    },
+    "EC2LaunchTemplateLaunchTemplateDataPlacementAffinity8QPbR": {
+      "NoEcho": "true",
+      "Type": "String",
+      "Description": "The affinity setting for an instance on a Dedicated Host."
+    },
+    "EC2LaunchTemplateLaunchTemplateDataHibernationOptionsConfiguredmMRJ0": {
+      "NoEcho": "true",
+      "Type": "String",
+      "Description": "If you set this parameter to ``true``, the instance is enabled for hibernation.\n Default: ``false``"
+    },
+    "EC2LaunchTemplateLaunchTemplateDataInstanceInitiatedShutdownBehavior6wfjo": {
+      "NoEcho": "true",
+      "Type": "String",
+      "Description": "Indicates whether an instance stops or terminates when you initiate shutdown from the instance (using the operating system command for system shutdown).\n Default: ``stop``"
+    },
+    "EC2LaunchTemplateLaunchTemplateDataInstanceRequirementsLocalStorageP2Sml": {
+      "NoEcho": "true",
+      "Type": "String",
+      "Description": "Indicates whether instance types with instance store volumes are included, excluded, or required. For more information, [Amazon EC2 instance store](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/InstanceStorage.html) in the *Amazon EC2 User Guide*.\n  +  To include instance types with instance store volumes, specify ``included``.\n  +  To require only instance types with instance store volumes, specify ``required``.\n  +  To exclude instance types with instance store volumes, specify ``excluded``.\n  \n Default: ``included``"
+    },
+    "EC2LaunchTemplateLaunchTemplateDataMetadataOptionsHttpEndpointy2GC2": {
+      "NoEcho": "true",
+      "Type": "String",
+      "Description": "Enables or disables the HTTP metadata endpoint on your instances. If the parameter is not specified, the default state is ``enabled``.\n  If you specify a value of ``disabled``, you will not be able to access your instance metadata."
+    },
+    "EC2LaunchTemplateLaunchTemplateDataCpuOptionsCoreCountgl4Uj": {
+      "NoEcho": "true",
+      "Type": "Number",
+      "Description": "The number of CPU cores for the instance."
+    },
+    "EC2LaunchTemplateLaunchTemplateDataIamInstanceProfileArnjEl2X": {
+      "NoEcho": "true",
+      "Type": "String",
+      "Description": "The Amazon Resource Name (ARN) of the instance profile."
+    },
+    "EC2LaunchTemplateLaunchTemplateDataCapacityReservationSpecificationCapacityReservationPreferenceCvDnK": {
+      "NoEcho": "true",
+      "Type": "String",
+      "Description": "Indicates the instance's Capacity Reservation preferences. Possible preferences include:\n  +  ``capacity-reservations-only`` - The instance will only run in a Capacity Reservation or Capacity Reservation group. If capacity isn't available, the instance will fail to launch.\n  +  ``open`` - The instance can run in any ``open`` Capacity Reservation that has matching attributes (instance type, platform, Availability Zone, tenancy).\n  +  ``none`` - The instance avoids running in a Capacity Reservation even if one is available. The instance runs in On-Demand capacity."
+    },
+    "EC2LaunchTemplateLaunchTemplateDataEnclaveOptionsEnablediH93w": {
+      "NoEcho": "true",
+      "Type": "String",
+      "Description": "If this parameter is set to ``true``, the instance is enabled for AWS Nitro Enclaves; otherwise, it is not enabled for AWS Nitro Enclaves."
+    },
+    "EC2LaunchTemplateLaunchTemplateDataCapacityReservationSpecificationCapacityReservationTargetCapacityReservationResourceGroupArntTHsu": {
+      "NoEcho": "true",
+      "Type": "String",
+      "Description": "The ARN of the Capacity Reservation resource group in which to run the instance."
+    },
+    "EC2LaunchTemplateLaunchTemplateDataInstanceRequirementsTotalLocalStorageGBMin9IPil": {
+      "NoEcho": "true",
+      "Type": "Number",
+      "Description": "The minimum amount of total local storage, in GB. To specify no minimum limit, omit this parameter."
+    },
+    "EC2LaunchTemplateLaunchTemplateDataKeyNameGjLVu": {
+      "NoEcho": "true",
+      "Type": "String",
+      "Description": "The name of the key pair. You can create a key pair using [CreateKeyPair](https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_CreateKeyPair.html) or [ImportKeyPair](https://docs.aws.amazon.com/AWSEC2/latest/APIReference/API_ImportKeyPair.html).\n  If you do not specify a key pair, you can't connect to the instance unless you choose an AMI that is configured to allow users another way to log in."
+    },
+    "EC2LaunchTemplateLaunchTemplateDataInstanceRequirementsMaxSpotPriceAsPercentageOfOptimalOnDemandPricehJzmG": {
+      "NoEcho": "true",
+      "Type": "Number",
+      "Description": "[Price protection] The price protection threshold for Spot Instances, as a percentage of an identified On-Demand price. The identified On-Demand price is the price of the lowest priced current generation C, M, or R instance type with your specified attributes. If no current generation C, M, or R instance type matches your attributes, then the identified price is from the lowest priced current generation instance types, and failing that, from the lowest priced previous generation instance types that match your attributes. When Amazon EC2 selects instance types with your attributes, it will exclude instance types whose price exceeds your specified threshold.\n The parameter accepts an integer, which Amazon EC2 interprets as a percentage.\n If you set ``TargetCapacityUnitType`` to ``vcpu`` or ``memory-mib``, the price protection threshold is based on the per vCPU or per memory price instead of the per instance price.\n  Only one of ``SpotMaxPricePercentageOverLowestPrice`` or ``MaxSpotPriceAsPercentageOfOptimalOnDemandPrice`` can be specified. If you don't specify either, Amazon EC2 will automatically apply optimal price protection to consistently select from a wide range of instance types. To indicate no price protection threshold for Spot Instances, meaning you want to consider all instance types that match your attributes, include one of these parameters and specify a high value, such as ``999999``."
+    },
+    "EC2LaunchTemplateLaunchTemplateDataInstanceRequirementsLocalStorageTypesnImlc": {
+      "NoEcho": "true",
+      "Type": "CommaDelimitedList",
+      "Description": "The type of local storage that is required.\n  +  For instance types with hard disk drive (HDD) storage, specify ``hdd``.\n  +  For instance types with solid state drive (SSD) storage, specify ``ssd``.\n  \n Default: ``hdd`` and ``ssd``"
+    },
+    "EC2LaunchTemplateLaunchTemplateDataMonitoringEnabledxCQcC": {
+      "NoEcho": "true",
+      "Type": "String",
+      "Description": "Specify ``true`` to enable detailed monitoring. Otherwise, basic monitoring is enabled."
+    }
+  },
+  "Resources": {
+    "EC2SubnetNetworkAclAssociationDK": {
+      "UpdateReplacePolicy": "Retain",
+      "Type": "AWS::EC2::SubnetNetworkAclAssociation",
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "NetworkAclId": "acl-03a714cb4a73c0a80",
+        "SubnetId": "subnet-0064f93f33aff9270"
+      }
+    },
+    "EC2VPCGatewayAttachmentIGW": {
+      "UpdateReplacePolicy": "Retain",
+      "Type": "AWS::EC2::VPCGatewayAttachment",
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "InternetGatewayId": "igw-082ba5a84c0c3c74f",
+        "VpcId": "vpc-0f24aedd86f34bab3"
+      }
+    },
+    "EC2SubnetWO": {
+      "UpdateReplacePolicy": "Retain",
+      "Type": "AWS::EC2::Subnet",
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "MapPublicIpOnLaunch": true,
+        "EnableDns64": false,
+        "VpcId": "vpc-0e4fc5ad3665fda58",
+        "AvailabilityZoneId": "use1-az4",
+        "PrivateDnsNameOptionsOnLaunch": {
+          "EnableResourceNameDnsARecord": false,
+          "HostnameType": "ip-name",
+          "EnableResourceNameDnsAAAARecord": false
+        },
+        "AvailabilityZone": "us-east-1c",
+        "CidrBlock": "172.31.16.0/20",
+        "Ipv6Native": false,
+        "Tags": []
+      }
+    },
+    "EC2SubnetNetworkAclAssociationLV": {
+      "UpdateReplacePolicy": "Retain",
+      "Type": "AWS::EC2::SubnetNetworkAclAssociation",
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "NetworkAclId": "acl-03a714cb4a73c0a80",
+        "SubnetId": "subnet-0ec952e696a2ef0bf"
+      }
+    },
+    "RDSDBSubnetGroupHealthtrackerdatabase": {
+      "UpdateReplacePolicy": "Retain",
+      "Type": "AWS::RDS::DBSubnetGroup",
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "DBSubnetGroupDescription": "subnet group for HealthTracker postgres database",
+        "SubnetIds": [
+          "subnet-063f73f0ab43a19cc",
+          "subnet-0064f93f33aff9270"
+        ],
+        "DBSubnetGroupName": "healthtracker database"
+      }
+    },
+    "EC2SubnetNetworkAclAssociationPO": {
+      "UpdateReplacePolicy": "Retain",
+      "Type": "AWS::EC2::SubnetNetworkAclAssociation",
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "NetworkAclId": "acl-0f6386bea5fab38d0",
+        "SubnetId": "subnet-06db2c0c3824e146d"
+      }
+    },
+    "EC2SubnetNetworkAclAssociation": {
+      "UpdateReplacePolicy": "Retain",
+      "Type": "AWS::EC2::SubnetNetworkAclAssociation",
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "NetworkAclId": "acl-0f6386bea5fab38d0",
+        "SubnetId": "subnet-02994b9765ff58abf"
+      }
+    },
+    "ElasticLoadBalancingV2ListenerListenerapphealthtrackeralb6980a8a46e0c3b016596439b21a1dcf5": {
+      "UpdateReplacePolicy": "Retain",
+      "Type": "AWS::ElasticLoadBalancingV2::Listener",
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "ListenerAttributes": [
+          {
+            "Value": "true",
+            "Key": "routing.http.response.server.enabled"
+          },
+          {
+            "Value": "",
+            "Key": "routing.http.response.access_control_allow_headers.header_value"
+          },
+          {
+            "Value": "",
+            "Key": "routing.http.response.x_frame_options.header_value"
+          },
+          {
+            "Value": "",
+            "Key": "routing.http.response.access_control_allow_methods.header_value"
+          },
+          {
+            "Value": "",
+            "Key": "routing.http.response.access_control_allow_origin.header_value"
+          },
+          {
+            "Value": "",
+            "Key": "routing.http.response.access_control_allow_credentials.header_value"
+          },
+          {
+            "Value": "",
+            "Key": "routing.http.response.x_content_type_options.header_value"
+          },
+          {
+            "Value": "",
+            "Key": "routing.http.response.content_security_policy.header_value"
+          },
+          {
+            "Value": "",
+            "Key": "routing.http.response.access_control_expose_headers.header_value"
+          },
+          {
+            "Value": "",
+            "Key": "routing.http.response.strict_transport_security.header_value"
+          },
+          {
+            "Value": "",
+            "Key": "routing.http.response.access_control_max_age.header_value"
+          }
+        ],
+        "Protocol": "HTTP",
+        "LoadBalancerArn": "arn:aws:elasticloadbalancing:us-east-1:256071447139:loadbalancer/app/healthtracker-alb/6980a8a46e0c3b01",
+        "DefaultActions": [
+          {
+            "Order": 1,
+            "TargetGroupArn": "arn:aws:elasticloadbalancing:us-east-1:256071447139:targetgroup/Spring-TG/9468c4950a34626d",
+            "Type": "forward",
+            "ForwardConfig": {
+              "TargetGroupStickinessConfig": {
+                "Enabled": false,
+                "DurationSeconds": 3600
+              },
+              "TargetGroups": [
+                {
+                  "TargetGroupArn": "arn:aws:elasticloadbalancing:us-east-1:256071447139:targetgroup/Spring-TG/9468c4950a34626d",
+                  "Weight": 1
+                }
+              ]
+            }
+          }
+        ],
+        "Port": 80
+      }
+    },
+    "ElasticLoadBalancingV2TargetGroupTargetgroupSpringTG9468c4950a34626d": {
+      "UpdateReplacePolicy": "Retain",
+      "Type": "AWS::ElasticLoadBalancingV2::TargetGroup",
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "IpAddressType": "ipv4",
+        "HealthCheckIntervalSeconds": 30,
+        "Matcher": {
+          "HttpCode": "200"
+        },
+        "HealthCheckPath": "/api/v1/health",
+        "Port": 8080,
+        "Targets": [
+          {
+            "Port": 8080,
+            "Id": "i-0af5ab6c4e8e25869"
+          }
+        ],
+        "HealthCheckEnabled": true,
+        "ProtocolVersion": "HTTP1",
+        "UnhealthyThresholdCount": 2,
+        "HealthCheckTimeoutSeconds": 5,
+        "Name": "Spring-TG",
+        "VpcId": "vpc-0f24aedd86f34bab3",
+        "HealthyThresholdCount": 5,
+        "HealthCheckProtocol": "HTTP",
+        "TargetGroupAttributes": [
+          {
+            "Value": "lb_cookie",
+            "Key": "stickiness.type"
+          },
+          {
+            "Value": "86400",
+            "Key": "stickiness.app_cookie.duration_seconds"
+          },
+          {
+            "Value": "1",
+            "Key": "target_group_health.dns_failover.minimum_healthy_targets.count"
+          },
+          {
+            "Value": "use_load_balancer_configuration",
+            "Key": "load_balancing.cross_zone.enabled"
+          },
+          {
+            "Value": "86400",
+            "Key": "stickiness.lb_cookie.duration_seconds"
+          },
+          {
+            "Value": "off",
+            "Key": "target_group_health.dns_failover.minimum_healthy_targets.percentage"
+          },
+          {
+            "Value": "false",
+            "Key": "stickiness.enabled"
+          },
+          {
+            "Value": "off",
+            "Key": "target_group_health.unhealthy_state_routing.minimum_healthy_targets.percentage"
+          },
+          {
+            "Value": "0",
+            "Key": "slow_start.duration_seconds"
+          },
+          {
+            "Value": "300",
+            "Key": "deregistration_delay.timeout_seconds"
+          },
+          {
+            "Value": "1",
+            "Key": "target_group_health.unhealthy_state_routing.minimum_healthy_targets.count"
+          },
+          {
+            "Value": "off",
+            "Key": "load_balancing.algorithm.anomaly_mitigation"
+          },
+          {
+            "Value": "",
+            "Key": "stickiness.app_cookie.cookie_name"
+          },
+          {
+            "Value": "round_robin",
+            "Key": "load_balancing.algorithm.type"
+          }
+        ],
+        "TargetType": "instance",
+        "HealthCheckPort": "traffic-port",
+        "Protocol": "HTTP",
+        "Tags": []
+      }
+    },
+    "EC2NatGateway": {
+      "UpdateReplacePolicy": "Retain",
+      "Type": "AWS::EC2::NatGateway",
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "PrivateIpAddress": "10.0.0.71",
+        "ConnectivityType": "public",
+        "VpcId": "vpc-0f24aedd86f34bab3",
+        "AvailabilityMode": "zonal",
+        "AllocationId": "eipalloc-08f4de68641c832a5",
+        "SubnetId": "subnet-0df530aee335f0a39",
+        "Tags": [
+          {
+            "Value": "project-nat-public1-us-east-1a",
+            "Key": "Name"
+          }
+        ]
+      }
+    },
+    "EC2SecurityGroupI5": {
+      "UpdateReplacePolicy": "Retain",
+      "Type": "AWS::EC2::SecurityGroup",
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "GroupDescription": "This ensures your Spring Boot instances only accept traffic coming from the ALB.",
+        "GroupName": "App-SG",
+        "VpcId": "vpc-0f24aedd86f34bab3",
+        "SecurityGroupIngress": [
+          {
+            "IpProtocol": "tcp",
+            "FromPort": 8080,
+            "SourceSecurityGroupId": "sg-03db0cdce9b4a8dc9",
+            "ToPort": 8080,
+            "SourceSecurityGroupOwnerId": "256071447139"
+          }
+        ],
+        "SecurityGroupEgress": [
+          {
+            "CidrIp": "0.0.0.0/0",
+            "IpProtocol": "-1"
+          }
+        ]
+      }
+    },
+    "EC2SubnetNJ": {
+      "UpdateReplacePolicy": "Retain",
+      "Type": "AWS::EC2::Subnet",
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "MapPublicIpOnLaunch": true,
+        "EnableDns64": false,
+        "VpcId": "vpc-0e4fc5ad3665fda58",
+        "AvailabilityZoneId": "use1-az5",
+        "PrivateDnsNameOptionsOnLaunch": {
+          "EnableResourceNameDnsARecord": false,
+          "HostnameType": "ip-name",
+          "EnableResourceNameDnsAAAARecord": false
+        },
+        "AvailabilityZone": "us-east-1f",
+        "CidrBlock": "172.31.64.0/20",
+        "Ipv6Native": false,
+        "Tags": []
+      }
+    },
+    "EC2SecurityGroupIngressEp": {
+      "UpdateReplacePolicy": "Retain",
+      "Type": "AWS::EC2::SecurityGroupIngress",
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "CidrIp": "0.0.0.0/0",
+        "GroupName": "ALB-SG",
+        "IpProtocol": "tcp",
+        "FromPort": 443,
+        "ToPort": 443,
+        "GroupId": "sg-03db0cdce9b4a8dc9"
+      }
+    },
+    "EC2SubnetUn": {
+      "UpdateReplacePolicy": "Retain",
+      "Type": "AWS::EC2::Subnet",
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "MapPublicIpOnLaunch": true,
+        "EnableDns64": false,
+        "VpcId": "vpc-0e4fc5ad3665fda58",
+        "AvailabilityZoneId": "use1-az6",
+        "PrivateDnsNameOptionsOnLaunch": {
+          "EnableResourceNameDnsARecord": false,
+          "HostnameType": "ip-name",
+          "EnableResourceNameDnsAAAARecord": false
+        },
+        "AvailabilityZone": "us-east-1d",
+        "CidrBlock": "172.31.32.0/20",
+        "Ipv6Native": false,
+        "Tags": []
+      }
+    },
+    "EC2DHCPOptions": {
+      "UpdateReplacePolicy": "Retain",
+      "Type": "AWS::EC2::DHCPOptions",
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "DomainName": "ec2.internal",
+        "DomainNameServers": [
+          "AmazonProvidedDNS"
+        ],
+        "Tags": []
+      }
+    },
+    "EC2SubnetVI": {
+      "UpdateReplacePolicy": "Retain",
+      "Type": "AWS::EC2::Subnet",
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "MapPublicIpOnLaunch": false,
+        "EnableDns64": false,
+        "VpcId": "vpc-0f24aedd86f34bab3",
+        "AvailabilityZoneId": "use1-az2",
+        "PrivateDnsNameOptionsOnLaunch": {
+          "EnableResourceNameDnsARecord": false,
+          "HostnameType": "ip-name",
+          "EnableResourceNameDnsAAAARecord": false
+        },
+        "AvailabilityZone": "us-east-1b",
+        "CidrBlock": "10.0.144.0/24",
+        "Ipv6Native": false,
+        "Tags": [
+          {
+            "Value": "project-subnet-private2-us-east-1b",
+            "Key": "Name"
+          }
+        ]
+      }
+    },
+    "CloudFrontCachePolicy": {
+      "UpdateReplacePolicy": "Retain",
+      "Type": "AWS::CloudFront::CachePolicy",
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "CachePolicyConfig": {
+          "Comment": "Policy with caching disabled",
+          "MinTTL": 0,
+          "MaxTTL": 0,
+          "ParametersInCacheKeyAndForwardedToOrigin": {
+            "QueryStringsConfig": {
+              "QueryStringBehavior": "none"
+            },
+            "EnableAcceptEncodingBrotli": false,
+            "HeadersConfig": {
+              "HeaderBehavior": "none"
+            },
+            "CookiesConfig": {
+              "CookieBehavior": "none"
+            },
+            "EnableAcceptEncodingGzip": false
+          },
+          "DefaultTTL": 0,
+          "Name": "Managed-CachingDisabled"
+        }
+      }
+    },
+    "KMSKey": {
+      "UpdateReplacePolicy": "Retain",
+      "Type": "AWS::KMS::Key",
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "Origin": "AWS_KMS",
+        "MultiRegion": false,
+        "Description": "Default key that protects my RDS database volumes when no other key is defined",
+        "KeyPolicy": {
+          "Version": "2012-10-17",
+          "Statement": [
+            {
+              "Condition": {
+                "StringEquals": {
+                  "kms:CallerAccount": "256071447139",
+                  "kms:ViaService": "rds.us-east-1.amazonaws.com"
+                }
+              },
+              "Resource": "*",
+              "Action": [
+                "kms:Encrypt",
+                "kms:Decrypt",
+                "kms:ReEncrypt*",
+                "kms:GenerateDataKey*",
+                "kms:CreateGrant",
+                "kms:ListGrants",
+                "kms:DescribeKey"
+              ],
+              "Effect": "Allow",
+              "Principal": {
+                "AWS": "*"
+              },
+              "Sid": "Allow access through RDS for all principals in the account that are authorized to use RDS"
+            },
+            {
+              "Resource": "*",
+              "Action": [
+                "kms:Describe*",
+                "kms:Get*",
+                "kms:List*",
+                "kms:RevokeGrant"
+              ],
+              "Effect": "Allow",
+              "Principal": {
+                "AWS": "arn:aws:iam::256071447139:root"
+              },
+              "Sid": "Allow direct access to key metadata to the account"
+            }
+          ],
+          "Id": "auto-rds-2"
+        },
+        "KeySpec": "SYMMETRIC_DEFAULT",
+        "Enabled": true,
+        "EnableKeyRotation": true,
+        "KeyUsage": "ENCRYPT_DECRYPT",
+        "Tags": []
+      }
+    },
+    "EC2VPCCidrBlock": {
+      "UpdateReplacePolicy": "Retain",
+      "Type": "AWS::EC2::VPCCidrBlock",
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "VpcId": "vpc-0f24aedd86f34bab3",
+        "CidrBlock": "10.0.0.0/16"
+      }
+    },
+    "RDSDBInstance": {
+      "UpdateReplacePolicy": "Retain",
+      "Type": "AWS::RDS::DBInstance",
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "DatabaseInsightsMode": "standard",
+        "StorageEncrypted": true,
+        "AssociatedRoles": [],
+        "Port": "5432",
+        "AdditionalStorageVolumes": [],
+        "ProcessorFeatures": [],
+        "StorageThroughput": 0,
+        "PreferredBackupWindow": "04:25-04:55",
+        "MonitoringInterval": 0,
+        "DBParameterGroupName": "default.postgres18",
+        "NetworkType": "IPV4",
+        "DedicatedLogVolume": false,
+        "CopyTagsToSnapshot": true,
+        "MultiAZ": false,
+        "Engine": "postgres",
+        "Tags": [],
+        "EngineLifecycleSupport": "open-source-rds-extended-support-disabled",
+        "LicenseModel": "postgresql-license",
+        "EngineVersion": "18.3",
+        "StorageType": "gp2",
+        "KmsKeyId": "arn:aws:kms:us-east-1:256071447139:key/d2ec176d-ed2d-4758-9c31-964ecfdbdb7a",
+        "DBInstanceClass": "db.t4g.micro",
+        "AvailabilityZone": "us-east-1a",
+        "OptionGroupName": "default:postgres-18",
+        "PreferredMaintenanceWindow": "tue:10:06-tue:10:36",
+        "EnablePerformanceInsights": false,
+        "AutoMinorVersionUpgrade": true,
+        "DBSubnetGroupName": "healthtracker database",
+        "DeletionProtection": false,
+        "DBInstanceIdentifier": "database-1",
+        "AllocatedStorage": "20",
+        "BackupTarget": "region",
+        "CACertificateIdentifier": "rds-ca-rsa2048-g1",
+        "ManageMasterUserPassword": false,
+        "MasterUserSecret": {},
+        "VPCSecurityGroups": [
+          "sg-0417a762451007c5a",
+          "sg-0f24782c731162dfa"
+        ],
+        "DBSecurityGroups": [],
+        "MasterUsername": "paas_admin",
+        "MaxAllocatedStorage": 1000,
+        "EnableIAMDatabaseAuthentication": false,
+        "PubliclyAccessible": false,
+        "BackupRetentionPeriod": 1,
+        "EnableCloudwatchLogsExports": []
+      }
+    },
+    "EC2VPCDHCPOptionsAssociation": {
+      "UpdateReplacePolicy": "Retain",
+      "Type": "AWS::EC2::VPCDHCPOptionsAssociation",
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "VpcId": "vpc-0f24aedd86f34bab3",
+        "DhcpOptionsId": "dopt-077e5d9e66755b2ce"
+      }
+    },
+    "EC2SubnetNetworkAclAssociationMA": {
+      "UpdateReplacePolicy": "Retain",
+      "Type": "AWS::EC2::SubnetNetworkAclAssociation",
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "NetworkAclId": "acl-0f6386bea5fab38d0",
+        "SubnetId": "subnet-0f19b6170f6609353"
+      }
+    },
+    "SNSTopicHealthtrackeralerts": {
+      "UpdateReplacePolicy": "Retain",
+      "Type": "AWS::SNS::Topic",
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "FifoTopic": false,
+        "Subscription": [
+          {
+            "Endpoint": "yousefhossam2082000@gmail.com",
+            "Protocol": "email"
+          },
+          {
+            "Endpoint": "youssefhossam2082000@gmail.com",
+            "Protocol": "email"
+          }
+        ],
+        "TracingConfig": "PassThrough",
+        "ArchivePolicy": {},
+        "TopicName": "healthtracker-alerts"
+      }
+    },
+    "EC2SecurityGroupIngressRI": {
+      "UpdateReplacePolicy": "Retain",
+      "Type": "AWS::EC2::SecurityGroupIngress",
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "CidrIp": "0.0.0.0/0",
+        "GroupName": "ALB-SG",
+        "IpProtocol": "tcp",
+        "FromPort": 80,
+        "ToPort": 80,
+        "GroupId": "sg-03db0cdce9b4a8dc9"
+      }
+    },
+    "S3BucketPolicyHealthtrackerfrontendprod": {
+      "UpdateReplacePolicy": "Retain",
+      "Type": "AWS::S3::BucketPolicy",
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "Bucket": "health-tracker-frontend-prod",
+        "PolicyDocument": {
+          "Version": "2008-10-17",
+          "Statement": [
+            {
+              "Condition": {
+                "ArnLike": {
+                  "AWS:SourceArn": "arn:aws:cloudfront::256071447139:distribution/E20PLANNG93ULT"
+                }
+              },
+              "Resource": "arn:aws:s3:::health-tracker-frontend-prod/*",
+              "Action": "s3:GetObject",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "cloudfront.amazonaws.com"
+              },
+              "Sid": "AllowCloudFrontServicePrincipal"
+            }
+          ],
+          "Id": "PolicyForCloudFrontPrivateContent"
+        }
+      }
+    },
+    "AutoScalingAutoScalingGroupHealthtrackeralb": {
+      "UpdateReplacePolicy": "Retain",
+      "Type": "AWS::AutoScaling::AutoScalingGroup",
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "LoadBalancerNames": [],
+        "ServiceLinkedRoleARN": "arn:aws:iam::256071447139:role/aws-service-role/autoscaling.amazonaws.com/AWSServiceRoleForAutoScaling",
+        "TargetGroupARNs": [
+          "arn:aws:elasticloadbalancing:us-east-1:256071447139:targetgroup/Spring-TG/9468c4950a34626d"
+        ],
+        "AvailabilityZoneIds": [
+          "use1-az1",
+          "use1-az2"
+        ],
+        "Cooldown": "300",
+        "AvailabilityZones": [
+          "us-east-1a",
+          "us-east-1b"
+        ],
+        "AvailabilityZoneDistribution": {
+          "CapacityDistributionStrategy": "balanced-best-effort"
+        },
+        "DesiredCapacity": "1",
+        "HealthCheckGracePeriod": 300,
+        "MetricsCollection": [],
+        "InstanceLifecyclePolicy": {
+          "RetentionTriggers": {
+            "TerminateHookAbandon": "terminate"
+          }
+        },
+        "DeletionProtection": "none",
+        "MaxSize": "1",
+        "NewInstancesProtectedFromScaleIn": false,
+        "MinSize": "1",
+        "TerminationPolicies": [
+          "Default"
+        ],
+        "LaunchTemplate": {
+          "Version": "$Default",
+          "LaunchTemplateName": "healthtracker-asg",
+          "LaunchTemplateId": "lt-04e60094b3be96ba3"
+        },
+        "AutoScalingGroupName": "healthtracker-alb",
+        "TrafficSources": [
+          {
+            "Type": "elbv2",
+            "Identifier": "arn:aws:elasticloadbalancing:us-east-1:256071447139:targetgroup/Spring-TG/9468c4950a34626d"
+          }
+        ],
+        "VPCZoneIdentifier": [
+          "subnet-0064f93f33aff9270",
+          "subnet-063f73f0ab43a19cc"
+        ],
+        "CapacityReservationSpecification": {
+          "CapacityReservationPreference": "none"
+        },
+        "Tags": [],
+        "HealthCheckType": "EC2"
+      }
+    },
+    "EC2InternetGateway": {
+      "UpdateReplacePolicy": "Retain",
+      "Type": "AWS::EC2::InternetGateway",
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "Tags": [
+          {
+            "Value": "project-igw",
+            "Key": "Name"
+          }
+        ]
+      }
+    },
+    "EC2NetworkAcl": {
+      "UpdateReplacePolicy": "Retain",
+      "Type": "AWS::EC2::NetworkAcl",
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "VpcId": "vpc-0f24aedd86f34bab3",
+        "Tags": []
+      }
+    },
+    "EC2SubnetIo": {
+      "UpdateReplacePolicy": "Retain",
+      "Type": "AWS::EC2::Subnet",
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "MapPublicIpOnLaunch": false,
+        "EnableDns64": false,
+        "VpcId": "vpc-0f24aedd86f34bab3",
+        "AvailabilityZoneId": "use1-az2",
+        "PrivateDnsNameOptionsOnLaunch": {
+          "EnableResourceNameDnsARecord": false,
+          "HostnameType": "ip-name",
+          "EnableResourceNameDnsAAAARecord": false
+        },
+        "AvailabilityZone": "us-east-1b",
+        "CidrBlock": "10.0.16.0/24",
+        "Ipv6Native": false,
+        "Tags": [
+          {
+            "Value": "project-subnet-public2-us-east-1b",
+            "Key": "Name"
+          }
+        ]
+      }
+    },
+    "EC2NetworkAclA7": {
+      "UpdateReplacePolicy": "Retain",
+      "Type": "AWS::EC2::NetworkAcl",
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "VpcId": "vpc-0e4fc5ad3665fda58",
+        "Tags": []
+      }
+    },
+    "EC2VPCEndpoint": {
+      "UpdateReplacePolicy": "Retain",
+      "Type": "AWS::EC2::VPCEndpoint",
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "PrivateDnsEnabled": false,
+        "IpAddressType": "ipv4",
+        "ServiceRegion": "us-east-1",
+        "DnsOptions": {
+          "PrivateDnsOnlyForInboundResolverEndpoint": "NotSpecified",
+          "PrivateDnsSpecifiedDomains": [
+            "*"
+          ],
+          "DnsRecordIpType": "service-defined",
+          "PrivateDnsPreference": "VERIFIED_DOMAINS_ONLY"
+        },
+        "ResourceConfigurationArn": "",
+        "SecurityGroupIds": [],
+        "SubnetIds": [],
+        "ServiceNetworkArn": "",
+        "VpcId": "vpc-0f24aedd86f34bab3",
+        "RouteTableIds": [
+          "rtb-009e9fa35dbaf95c3",
+          "rtb-0bba0628dc1896ec3"
+        ],
+        "ServiceName": "com.amazonaws.us-east-1.s3",
+        "PolicyDocument": {
+          "Version": "2008-10-17",
+          "Statement": [
+            {
+              "Resource": "*",
+              "Action": "*",
+              "Effect": "Allow",
+              "Principal": "*"
+            }
+          ]
+        },
+        "VpcEndpointType": "Gateway",
+        "Tags": [
+          {
+            "Value": "project-vpce-s3",
+            "Key": "Name"
+          }
+        ]
+      }
+    },
+    "EC2SubnetMm": {
+      "UpdateReplacePolicy": "Retain",
+      "Type": "AWS::EC2::Subnet",
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "MapPublicIpOnLaunch": true,
+        "EnableDns64": false,
+        "VpcId": "vpc-0e4fc5ad3665fda58",
+        "AvailabilityZoneId": "use1-az1",
+        "PrivateDnsNameOptionsOnLaunch": {
+          "EnableResourceNameDnsARecord": false,
+          "HostnameType": "ip-name",
+          "EnableResourceNameDnsAAAARecord": false
+        },
+        "AvailabilityZone": "us-east-1a",
+        "CidrBlock": "172.31.0.0/20",
+        "Ipv6Native": false,
+        "Tags": []
+      }
+    },
+    "EC2VPCL1": {
+      "UpdateReplacePolicy": "Retain",
+      "Type": "AWS::EC2::VPC",
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "CidrBlock": "10.0.0.0/16",
+        "EnableDnsSupport": true,
+        "InstanceTenancy": "default",
+        "EnableDnsHostnames": true,
+        "Tags": [
+          {
+            "Value": "project-vpc",
+            "Key": "Name"
+          }
+        ]
+      }
+    },
+    "RDSOptionGroupDefaultpostgres18": {
+      "UpdateReplacePolicy": "Retain",
+      "Type": "AWS::RDS::OptionGroup",
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "OptionGroupDescription": "Default option group for postgres 18",
+        "OptionGroupName": "default:postgres-18",
+        "OptionConfigurations": [],
+        "MajorEngineVersion": "18",
+        "EngineName": "postgres",
+        "Tags": []
+      }
+    },
+    "EC2Subnet": {
+      "UpdateReplacePolicy": "Retain",
+      "Type": "AWS::EC2::Subnet",
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "MapPublicIpOnLaunch": false,
+        "EnableDns64": false,
+        "VpcId": "vpc-0f24aedd86f34bab3",
+        "AvailabilityZoneId": "use1-az1",
+        "PrivateDnsNameOptionsOnLaunch": {
+          "EnableResourceNameDnsARecord": false,
+          "HostnameType": "ip-name",
+          "EnableResourceNameDnsAAAARecord": false
+        },
+        "AvailabilityZone": "us-east-1a",
+        "CidrBlock": "10.0.128.0/24",
+        "Ipv6Native": false,
+        "Tags": [
+          {
+            "Value": "project-subnet-private1-us-east-1a",
+            "Key": "Name"
+          }
+        ]
+      }
+    },
+    "EC2SecurityGroup": {
+      "UpdateReplacePolicy": "Retain",
+      "Type": "AWS::EC2::SecurityGroup",
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "GroupDescription": "This group exposes your load balancer to the web.",
+        "GroupName": "ALB-SG",
+        "VpcId": "vpc-0f24aedd86f34bab3",
+        "SecurityGroupIngress": [
+          {
+            "CidrIp": "0.0.0.0/0",
+            "IpProtocol": "tcp",
+            "FromPort": 80,
+            "ToPort": 80
+          },
+          {
+            "CidrIp": "0.0.0.0/0",
+            "IpProtocol": "tcp",
+            "FromPort": 443,
+            "ToPort": 443
+          }
+        ],
+        "SecurityGroupEgress": [
+          {
+            "CidrIp": "0.0.0.0/0",
+            "IpProtocol": "-1"
+          }
+        ]
+      }
+    },
+    "EC2SecurityGroupQn": {
+      "UpdateReplacePolicy": "Retain",
+      "Type": "AWS::EC2::SecurityGroup",
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "GroupDescription": "This ensures your database only accepts traffic coming from your Spring Boot app.",
+        "GroupName": "DB-SG",
+        "VpcId": "vpc-0f24aedd86f34bab3",
+        "SecurityGroupIngress": [
+          {
+            "IpProtocol": "tcp",
+            "FromPort": 5432,
+            "SourceSecurityGroupId": "sg-04f7edcadfa0fb2a7",
+            "ToPort": 5432,
+            "SourceSecurityGroupOwnerId": "256071447139"
+          }
+        ],
+        "SecurityGroupEgress": [
+          {
+            "CidrIp": "0.0.0.0/0",
+            "IpProtocol": "-1"
+          }
+        ]
+      }
+    },
+    "SNSSubscriptionHealthtrackeralerts9ae49a4d30ea479e89da1f583e5eb6cf": {
+      "UpdateReplacePolicy": "Retain",
+      "Type": "AWS::SNS::Subscription",
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "RawMessageDelivery": false,
+        "Endpoint": "youssefhossam2082000@gmail.com",
+        "TopicArn": "arn:aws:sns:us-east-1:256071447139:healthtracker-alerts",
+        "Protocol": "email"
+      }
+    },
+    "EC2LaunchTemplate": {
+      "UpdateReplacePolicy": "Retain",
+      "Type": "AWS::EC2::LaunchTemplate",
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "LaunchTemplateData": {
+          "SecurityGroups": {
+            "Ref": "EC2LaunchTemplateLaunchTemplateDataSecurityGroupse59b1"
+          },
+          "NetworkPerformanceOptions": {
+            "BandwidthWeighting": {
+              "Ref": "EC2LaunchTemplateLaunchTemplateDataNetworkPerformanceOptionsBandwidthWeightingLWwfV"
+            }
+          },
+          "UserData": {
+            "Ref": "EC2LaunchTemplateLaunchTemplateDataUserDatapRLTt"
+          },
+          "MaintenanceOptions": {
+            "AutoRecovery": {
+              "Ref": "EC2LaunchTemplateLaunchTemplateDataMaintenanceOptionsAutoRecoveryz9rTH"
+            }
+          },
+          "IamInstanceProfile": {
+            "Arn": {
+              "Ref": "EC2LaunchTemplateLaunchTemplateDataIamInstanceProfileArnjEl2X"
+            },
+            "Name": {
+              "Ref": "EC2LaunchTemplateLaunchTemplateDataIamInstanceProfileNameRVrWv"
+            }
+          },
+          "KernelId": {
+            "Ref": "EC2LaunchTemplateLaunchTemplateDataKernelIdolJ7y"
+          },
+          "EbsOptimized": {
+            "Ref": "EC2LaunchTemplateLaunchTemplateDataEbsOptimizedOT874"
+          },
+          "Placement": {
+            "Tenancy": {
+              "Ref": "EC2LaunchTemplateLaunchTemplateDataPlacementTenancydhIja"
+            },
+            "GroupName": {
+              "Ref": "EC2LaunchTemplateLaunchTemplateDataPlacementGroupNameiXrDo"
+            },
+            "SpreadDomain": {
+              "Ref": "EC2LaunchTemplateLaunchTemplateDataPlacementSpreadDomainAmxHt"
+            },
+            "PartitionNumber": {
+              "Ref": "EC2LaunchTemplateLaunchTemplateDataPlacementPartitionNumbergqb7V"
+            },
+            "Affinity": {
+              "Ref": "EC2LaunchTemplateLaunchTemplateDataPlacementAffinity8QPbR"
+            },
+            "AvailabilityZone": {
+              "Ref": "EC2LaunchTemplateLaunchTemplateDataPlacementAvailabilityZoneoSlDw"
+            },
+            "HostResourceGroupArn": {
+              "Ref": "EC2LaunchTemplateLaunchTemplateDataPlacementHostResourceGroupArnYOMMb"
+            },
+            "HostId": {
+              "Ref": "EC2LaunchTemplateLaunchTemplateDataPlacementHostIdoPxUf"
+            },
+            "GroupId": {
+              "Ref": "EC2LaunchTemplateLaunchTemplateDataPlacementGroupIdh1tKI"
+            }
+          },
+          "EnclaveOptions": {
+            "Enabled": {
+              "Ref": "EC2LaunchTemplateLaunchTemplateDataEnclaveOptionsEnablediH93w"
+            }
+          },
+          "ImageId": {
+            "Ref": "EC2LaunchTemplateLaunchTemplateDataImageIdF5WMp"
+          },
+          "InstanceType": {
+            "Ref": "EC2LaunchTemplateLaunchTemplateDataInstanceType5gpL0"
+          },
+          "Monitoring": {
+            "Enabled": {
+              "Ref": "EC2LaunchTemplateLaunchTemplateDataMonitoringEnabledxCQcC"
+            }
+          },
+          "HibernationOptions": {
+            "Configured": {
+              "Ref": "EC2LaunchTemplateLaunchTemplateDataHibernationOptionsConfiguredmMRJ0"
+            }
+          },
+          "MetadataOptions": {
+            "HttpPutResponseHopLimit": {
+              "Ref": "EC2LaunchTemplateLaunchTemplateDataMetadataOptionsHttpPutResponseHopLimitI8TBu"
+            },
+            "HttpTokens": {
+              "Ref": "EC2LaunchTemplateLaunchTemplateDataMetadataOptionsHttpTokenswWOLz"
+            },
+            "HttpProtocolIpv6": {
+              "Ref": "EC2LaunchTemplateLaunchTemplateDataMetadataOptionsHttpProtocolIpv6R5Gqz"
+            },
+            "InstanceMetadataTags": {
+              "Ref": "EC2LaunchTemplateLaunchTemplateDataMetadataOptionsInstanceMetadataTagsJ4umG"
+            },
+            "HttpEndpoint": {
+              "Ref": "EC2LaunchTemplateLaunchTemplateDataMetadataOptionsHttpEndpointy2GC2"
+            }
+          },
+          "DisableApiStop": {
+            "Ref": "EC2LaunchTemplateLaunchTemplateDataDisableApiStopmDh2t"
+          },
+          "InstanceInitiatedShutdownBehavior": {
+            "Ref": "EC2LaunchTemplateLaunchTemplateDataInstanceInitiatedShutdownBehavior6wfjo"
+          },
+          "CpuOptions": {
+            "ThreadsPerCore": {
+              "Ref": "EC2LaunchTemplateLaunchTemplateDataCpuOptionsThreadsPerCoreAV7Rl"
+            },
+            "AmdSevSnp": {
+              "Ref": "EC2LaunchTemplateLaunchTemplateDataCpuOptionsAmdSevSnprE7jw"
+            },
+            "CoreCount": {
+              "Ref": "EC2LaunchTemplateLaunchTemplateDataCpuOptionsCoreCountgl4Uj"
+            },
+            "NestedVirtualization": {
+              "Ref": "EC2LaunchTemplateLaunchTemplateDataCpuOptionsNestedVirtualizationZakdL"
+            }
+          },
+          "PrivateDnsNameOptions": {
+            "EnableResourceNameDnsARecord": {
+              "Ref": "EC2LaunchTemplateLaunchTemplateDataPrivateDnsNameOptionsEnableResourceNameDnsARecorduGch9"
+            },
+            "HostnameType": {
+              "Ref": "EC2LaunchTemplateLaunchTemplateDataPrivateDnsNameOptionsHostnameTypelN4Rg"
+            },
+            "EnableResourceNameDnsAAAARecord": {
+              "Ref": "EC2LaunchTemplateLaunchTemplateDataPrivateDnsNameOptionsEnableResourceNameDnsAAAARecordW3gj8"
+            }
+          },
+          "SecurityGroupIds": {
+            "Ref": "EC2LaunchTemplateLaunchTemplateDataSecurityGroupIdsjpLsz"
+          },
+          "KeyName": {
+            "Ref": "EC2LaunchTemplateLaunchTemplateDataKeyNameGjLVu"
+          },
+          "DisableApiTermination": {
+            "Ref": "EC2LaunchTemplateLaunchTemplateDataDisableApiTerminationGFh5B"
+          },
+          "InstanceMarketOptions": {
+            "SpotOptions": {
+              "InstanceInterruptionBehavior": {
+                "Ref": "EC2LaunchTemplateLaunchTemplateDataInstanceMarketOptionsSpotOptionsInstanceInterruptionBehaviorwfP3B"
+              },
+              "MaxPrice": {
+                "Ref": "EC2LaunchTemplateLaunchTemplateDataInstanceMarketOptionsSpotOptionsMaxPrice9bLRb"
+              },
+              "SpotInstanceType": {
+                "Ref": "EC2LaunchTemplateLaunchTemplateDataInstanceMarketOptionsSpotOptionsSpotInstanceTypecOb7G"
+              },
+              "BlockDurationMinutes": {
+                "Ref": "EC2LaunchTemplateLaunchTemplateDataInstanceMarketOptionsSpotOptionsBlockDurationMinutesk8FEu"
+              },
+              "ValidUntil": {
+                "Ref": "EC2LaunchTemplateLaunchTemplateDataInstanceMarketOptionsSpotOptionsValidUntil04AbK"
+              }
+            },
+            "MarketType": {
+              "Ref": "EC2LaunchTemplateLaunchTemplateDataInstanceMarketOptionsMarketTypeKKl0m"
+            }
+          },
+          "InstanceRequirements": {
+            "LocalStorageTypes": {
+              "Ref": "EC2LaunchTemplateLaunchTemplateDataInstanceRequirementsLocalStorageTypesnImlc"
+            },
+            "InstanceGenerations": {
+              "Ref": "EC2LaunchTemplateLaunchTemplateDataInstanceRequirementsInstanceGenerationslp3pN"
+            },
+            "NetworkInterfaceCount": {
+              "Max": {
+                "Ref": "EC2LaunchTemplateLaunchTemplateDataInstanceRequirementsNetworkInterfaceCountMaxy7sho"
+              },
+              "Min": {
+                "Ref": "EC2LaunchTemplateLaunchTemplateDataInstanceRequirementsNetworkInterfaceCountMinmVN1P"
+              }
+            },
+            "MemoryGiBPerVCpu": {
+              "Max": {
+                "Ref": "EC2LaunchTemplateLaunchTemplateDataInstanceRequirementsMemoryGiBPerVCpuMaxcvlev"
+              },
+              "Min": {
+                "Ref": "EC2LaunchTemplateLaunchTemplateDataInstanceRequirementsMemoryGiBPerVCpuMinWLWJJ"
+              }
+            },
+            "AcceleratorTypes": {
+              "Ref": "EC2LaunchTemplateLaunchTemplateDataInstanceRequirementsAcceleratorTypesfntR4"
+            },
+            "VCpuCount": {
+              "Max": {
+                "Ref": "EC2LaunchTemplateLaunchTemplateDataInstanceRequirementsVCpuCountMaxVcnrG"
+              },
+              "Min": {
+                "Ref": "EC2LaunchTemplateLaunchTemplateDataInstanceRequirementsVCpuCountMinEeeNA"
+              }
+            },
+            "ExcludedInstanceTypes": {
+              "Ref": "EC2LaunchTemplateLaunchTemplateDataInstanceRequirementsExcludedInstanceTypeso4jaX"
+            },
+            "AcceleratorManufacturers": {
+              "Ref": "EC2LaunchTemplateLaunchTemplateDataInstanceRequirementsAcceleratorManufacturersxrfLV"
+            },
+            "AllowedInstanceTypes": {
+              "Ref": "EC2LaunchTemplateLaunchTemplateDataInstanceRequirementsAllowedInstanceTypesuuqkJ"
+            },
+            "LocalStorage": {
+              "Ref": "EC2LaunchTemplateLaunchTemplateDataInstanceRequirementsLocalStorageP2Sml"
+            },
+            "CpuManufacturers": {
+              "Ref": "EC2LaunchTemplateLaunchTemplateDataInstanceRequirementsCpuManufacturersAR7Em"
+            },
+            "NetworkBandwidthGbps": {
+              "Max": {
+                "Ref": "EC2LaunchTemplateLaunchTemplateDataInstanceRequirementsNetworkBandwidthGbpsMaxRNiPt"
+              },
+              "Min": {
+                "Ref": "EC2LaunchTemplateLaunchTemplateDataInstanceRequirementsNetworkBandwidthGbpsMincQrBp"
+              }
+            },
+            "AcceleratorCount": {
+              "Max": {
+                "Ref": "EC2LaunchTemplateLaunchTemplateDataInstanceRequirementsAcceleratorCountMaxmCbCm"
+              },
+              "Min": {
+                "Ref": "EC2LaunchTemplateLaunchTemplateDataInstanceRequirementsAcceleratorCountMin7YEuG"
+              }
+            },
+            "BareMetal": {
+              "Ref": "EC2LaunchTemplateLaunchTemplateDataInstanceRequirementsBareMetal0bHbS"
+            },
+            "RequireHibernateSupport": {
+              "Ref": "EC2LaunchTemplateLaunchTemplateDataInstanceRequirementsRequireHibernateSupportOgsfQ"
+            },
+            "MaxSpotPriceAsPercentageOfOptimalOnDemandPrice": {
+              "Ref": "EC2LaunchTemplateLaunchTemplateDataInstanceRequirementsMaxSpotPriceAsPercentageOfOptimalOnDemandPricehJzmG"
+            },
+            "BaselineEbsBandwidthMbps": {
+              "Max": {
+                "Ref": "EC2LaunchTemplateLaunchTemplateDataInstanceRequirementsBaselineEbsBandwidthMbpsMaxxtzE2"
+              },
+              "Min": {
+                "Ref": "EC2LaunchTemplateLaunchTemplateDataInstanceRequirementsBaselineEbsBandwidthMbpsMintYYAQ"
+              }
+            },
+            "SpotMaxPricePercentageOverLowestPrice": {
+              "Ref": "EC2LaunchTemplateLaunchTemplateDataInstanceRequirementsSpotMaxPricePercentageOverLowestPricezKO3a"
+            },
+            "AcceleratorNames": {
+              "Ref": "EC2LaunchTemplateLaunchTemplateDataInstanceRequirementsAcceleratorNames6N5pN"
+            },
+            "AcceleratorTotalMemoryMiB": {
+              "Max": {
+                "Ref": "EC2LaunchTemplateLaunchTemplateDataInstanceRequirementsAcceleratorTotalMemoryMiBMaxmr3TU"
+              },
+              "Min": {
+                "Ref": "EC2LaunchTemplateLaunchTemplateDataInstanceRequirementsAcceleratorTotalMemoryMiBMinkaEKP"
+              }
+            },
+            "OnDemandMaxPricePercentageOverLowestPrice": {
+              "Ref": "EC2LaunchTemplateLaunchTemplateDataInstanceRequirementsOnDemandMaxPricePercentageOverLowestPricepSPsO"
+            },
+            "BurstablePerformance": {
+              "Ref": "EC2LaunchTemplateLaunchTemplateDataInstanceRequirementsBurstablePerformanceHKdDJ"
+            },
+            "MemoryMiB": {
+              "Max": {
+                "Ref": "EC2LaunchTemplateLaunchTemplateDataInstanceRequirementsMemoryMiBMaxNXia3"
+              },
+              "Min": {
+                "Ref": "EC2LaunchTemplateLaunchTemplateDataInstanceRequirementsMemoryMiBMinU7Nx2"
+              }
+            },
+            "TotalLocalStorageGB": {
+              "Max": {
+                "Ref": "EC2LaunchTemplateLaunchTemplateDataInstanceRequirementsTotalLocalStorageGBMaxs8AaS"
+              },
+              "Min": {
+                "Ref": "EC2LaunchTemplateLaunchTemplateDataInstanceRequirementsTotalLocalStorageGBMin9IPil"
+              }
+            }
+          },
+          "CapacityReservationSpecification": {
+            "CapacityReservationTarget": {
+              "CapacityReservationResourceGroupArn": {
+                "Ref": "EC2LaunchTemplateLaunchTemplateDataCapacityReservationSpecificationCapacityReservationTargetCapacityReservationResourceGroupArntTHsu"
+              },
+              "CapacityReservationId": {
+                "Ref": "EC2LaunchTemplateLaunchTemplateDataCapacityReservationSpecificationCapacityReservationTargetCapacityReservationIdwK461"
+              }
+            },
+            "CapacityReservationPreference": {
+              "Ref": "EC2LaunchTemplateLaunchTemplateDataCapacityReservationSpecificationCapacityReservationPreferenceCvDnK"
+            }
+          },
+          "RamDiskId": {
+            "Ref": "EC2LaunchTemplateLaunchTemplateDataRamDiskIdZgI5g"
+          },
+          "CreditSpecification": {
+            "CpuCredits": {
+              "Ref": "EC2LaunchTemplateLaunchTemplateDataCreditSpecificationCpuCreditsaCgY6"
+            }
+          }
+        },
+        "LaunchTemplateName": "healthtracker-asg"
+      }
+    },
+    "S3BucketHealthtrackerfrontendprod": {
+      "UpdateReplacePolicy": "Retain",
+      "Type": "AWS::S3::Bucket",
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "AbacStatus": "Disabled",
+        "PublicAccessBlockConfiguration": {
+          "RestrictPublicBuckets": true,
+          "IgnorePublicAcls": true,
+          "BlockPublicPolicy": true,
+          "BlockPublicAcls": true
+        },
+        "BucketName": "health-tracker-frontend-prod",
+        "OwnershipControls": {
+          "Rules": [
+            {
+              "ObjectOwnership": "BucketOwnerEnforced"
+            }
+          ]
+        },
+        "BucketEncryption": {
+          "ServerSideEncryptionConfiguration": [
+            {
+              "BucketKeyEnabled": true,
+              "BlockedEncryptionTypes": {
+                "EncryptionType": [
+                  "SSE-C"
+                ]
+              },
+              "ServerSideEncryptionByDefault": {
+                "SSEAlgorithm": "AES256"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "EC2SubnetNetworkAclAssociationND": {
+      "UpdateReplacePolicy": "Retain",
+      "Type": "AWS::EC2::SubnetNetworkAclAssociation",
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "NetworkAclId": "acl-03a714cb4a73c0a80",
+        "SubnetId": "subnet-0df530aee335f0a39"
+      }
+    },
+    "EC2SecurityGroupIngress": {
+      "UpdateReplacePolicy": "Retain",
+      "Type": "AWS::EC2::SecurityGroupIngress",
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "GroupName": "DB-SG",
+        "FromPort": 5432,
+        "SourceSecurityGroupName": "App-SG",
+        "ToPort": 5432,
+        "SourceSecurityGroupOwnerId": "256071447139",
+        "IpProtocol": "tcp",
+        "SourceSecurityGroupId": "sg-04f7edcadfa0fb2a7",
+        "GroupId": "sg-0417a762451007c5a"
+      }
+    },
+    "EC2SecurityGroupEgressRA": {
+      "UpdateReplacePolicy": "Retain",
+      "Type": "AWS::EC2::SecurityGroupEgress",
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "CidrIp": "0.0.0.0/0",
+        "IpProtocol": "-1",
+        "FromPort": -1,
+        "ToPort": -1,
+        "GroupId": "sg-04f7edcadfa0fb2a7"
+      }
+    },
+    "CloudWatchAlarmASGHighCPU80": {
+      "UpdateReplacePolicy": "Retain",
+      "Type": "AWS::CloudWatch::Alarm",
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "ComparisonOperator": "GreaterThanOrEqualToThreshold",
+        "TreatMissingData": "missing",
+        "Dimensions": [
+          {
+            "Value": "healthtracker-alb",
+            "Name": "AutoScalingGroupName"
+          }
+        ],
+        "Period": 300,
+        "EvaluationPeriods": 1,
+        "Namespace": "AWS/EC2",
+        "OKActions": [],
+        "AlarmActions": [
+          "arn:aws:sns:us-east-1:256071447139:healthtracker-alerts"
+        ],
+        "MetricName": "CPUUtilization",
+        "ActionsEnabled": true,
+        "AlarmName": "ASG-High-CPU-80%",
+        "Statistic": "Average",
+        "InsufficientDataActions": [],
+        "DatapointsToAlarm": 1,
+        "Tags": [],
+        "Threshold": 60
+      }
+    },
+    "EC2SubnetNetworkAclAssociationRA": {
+      "UpdateReplacePolicy": "Retain",
+      "Type": "AWS::EC2::SubnetNetworkAclAssociation",
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "NetworkAclId": "acl-03a714cb4a73c0a80",
+        "SubnetId": "subnet-063f73f0ab43a19cc"
+      }
+    },
+    "EC2SubnetNetworkAclAssociationEQ": {
+      "UpdateReplacePolicy": "Retain",
+      "Type": "AWS::EC2::SubnetNetworkAclAssociation",
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "NetworkAclId": "acl-0f6386bea5fab38d0",
+        "SubnetId": "subnet-097d3c21f1fc99da3"
+      }
+    },
+    "EC2SubnetNetworkAclAssociationQb": {
+      "UpdateReplacePolicy": "Retain",
+      "Type": "AWS::EC2::SubnetNetworkAclAssociation",
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "NetworkAclId": "acl-0f6386bea5fab38d0",
+        "SubnetId": "subnet-0a7d79d70cf7dd7cb"
+      }
+    },
+    "EC2SecurityGroupAu": {
+      "UpdateReplacePolicy": "Retain",
+      "Type": "AWS::EC2::SecurityGroup",
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "GroupDescription": "default VPC security group",
+        "GroupName": "default",
+        "VpcId": "vpc-0f24aedd86f34bab3",
+        "SecurityGroupIngress": [
+          {
+            "SourceSecurityGroupId": "sg-0f24782c731162dfa",
+            "IpProtocol": "-1",
+            "SourceSecurityGroupOwnerId": "256071447139"
+          }
+        ],
+        "SecurityGroupEgress": [
+          {
+            "CidrIp": "0.0.0.0/0",
+            "IpProtocol": "-1"
+          }
+        ]
+      }
+    },
+    "RDSDBParameterGroupDefaultpostgres18": {
+      "UpdateReplacePolicy": "Retain",
+      "Type": "AWS::RDS::DBParameterGroup",
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "DBParameterGroupName": "default.postgres18",
+        "Family": "postgres18",
+        "Description": "Default parameter group for postgres18",
+        "Parameters": {}
+      }
+    },
+    "CloudFrontDistribution": {
+      "UpdateReplacePolicy": "Retain",
+      "Type": "AWS::CloudFront::Distribution",
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "DistributionConfig": {
+          "Logging": {
+            "IncludeCookies": false,
+            "Bucket": "",
+            "Prefix": ""
+          },
+          "Comment": "",
+          "DefaultRootObject": "index.html",
+          "Origins": [
+            {
+              "ConnectionTimeout": 10,
+              "OriginAccessControlId": "E1ZZ9P7I8X45DP",
+              "ConnectionAttempts": 3,
+              "OriginCustomHeaders": [],
+              "DomainName": "health-tracker-frontend-prod.s3.us-east-1.amazonaws.com",
+              "OriginShield": {
+                "Enabled": false
+              },
+              "S3OriginConfig": {
+                "OriginReadTimeout": 30,
+                "OriginAccessIdentity": ""
+              },
+              "OriginPath": "/dist",
+              "Id": "health-tracker-frontend-prod.s3.us-east-1.amazonaws.com-msbv1tf5ahu"
+            },
+            {
+              "ConnectionTimeout": 10,
+              "OriginAccessControlId": "",
+              "ConnectionAttempts": 3,
+              "OriginCustomHeaders": [],
+              "DomainName": "healthtracker-alb-974021947.us-east-1.elb.amazonaws.com",
+              "OriginShield": {
+                "Enabled": false
+              },
+              "OriginPath": "",
+              "Id": "healthtracker-alb-974021947.us-east-1.elb.amazonaws.com",
+              "CustomOriginConfig": {
+                "IpAddressType": "ipv4",
+                "OriginReadTimeout": 30,
+                "HTTPSPort": 443,
+                "OriginKeepaliveTimeout": 5,
+                "OriginSSLProtocols": [
+                  "SSLv3",
+                  "TLSv1",
+                  "TLSv1.1",
+                  "TLSv1.2"
+                ],
+                "HTTPPort": 80,
+                "OriginProtocolPolicy": "http-only"
+              }
+            }
+          ],
+          "ViewerCertificate": {
+            "MinimumProtocolVersion": "TLSv1",
+            "SslSupportMethod": "vip",
+            "CloudFrontDefaultCertificate": true
+          },
+          "PriceClass": "PriceClass_All",
+          "DefaultCacheBehavior": {
+            "Compress": true,
+            "FunctionAssociations": [],
+            "LambdaFunctionAssociations": [],
+            "TargetOriginId": "health-tracker-frontend-prod.s3.us-east-1.amazonaws.com-msbv1tf5ahu",
+            "ViewerProtocolPolicy": "allow-all",
+            "GrpcConfig": {
+              "Enabled": false
+            },
+            "TrustedSigners": [],
+            "FieldLevelEncryptionId": "",
+            "TrustedKeyGroups": [],
+            "AllowedMethods": [
+              "HEAD",
+              "DELETE",
+              "POST",
+              "GET",
+              "OPTIONS",
+              "PUT",
+              "PATCH"
+            ],
+            "CachedMethods": [
+              "HEAD",
+              "GET"
+            ],
+            "SmoothStreaming": false,
+            "CachePolicyId": "4135ea2d-6df8-44a3-9df3-4b5a84be39ad"
+          },
+          "Staging": false,
+          "CustomErrorResponses": [
+            {
+              "ErrorCachingMinTTL": 10,
+              "ResponseCode": 200,
+              "ErrorCode": 403,
+              "ResponsePagePath": "/index.html"
+            },
+            {
+              "ErrorCachingMinTTL": 10,
+              "ResponseCode": 200,
+              "ErrorCode": 404,
+              "ResponsePagePath": "/index.html"
+            }
+          ],
+          "ContinuousDeploymentPolicyId": "",
+          "OriginGroups": {
+            "Quantity": 0,
+            "Items": []
+          },
+          "Enabled": true,
+          "Aliases": [],
+          "IPV6Enabled": true,
+          "WebACLId": "",
+          "HttpVersion": "http2",
+          "Restrictions": {
+            "GeoRestriction": {
+              "Locations": [],
+              "RestrictionType": "none"
+            }
+          },
+          "CacheBehaviors": [
+            {
+              "Compress": true,
+              "FunctionAssociations": [],
+              "LambdaFunctionAssociations": [],
+              "TargetOriginId": "healthtracker-alb-974021947.us-east-1.elb.amazonaws.com",
+              "ViewerProtocolPolicy": "redirect-to-https",
+              "GrpcConfig": {
+                "Enabled": false
+              },
+              "TrustedSigners": [],
+              "FieldLevelEncryptionId": "",
+              "TrustedKeyGroups": [],
+              "AllowedMethods": [
+                "HEAD",
+                "DELETE",
+                "POST",
+                "GET",
+                "OPTIONS",
+                "PUT",
+                "PATCH"
+              ],
+              "PathPattern": "/api/*",
+              "CachedMethods": [
+                "HEAD",
+                "GET"
+              ],
+              "SmoothStreaming": false,
+              "OriginRequestPolicyId": "216adef6-5c7f-47e4-b989-5492eafa07d3",
+              "CachePolicyId": "4135ea2d-6df8-44a3-9df3-4b5a84be39ad"
+            }
+          ]
+        },
+        "Tags": [
+          {
+            "Value": "health-tracker-frontend-dist",
+            "Key": "Name"
+          }
+        ]
+      }
+    },
+    "EC2SubnetY4": {
+      "UpdateReplacePolicy": "Retain",
+      "Type": "AWS::EC2::Subnet",
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "MapPublicIpOnLaunch": true,
+        "EnableDns64": false,
+        "VpcId": "vpc-0e4fc5ad3665fda58",
+        "AvailabilityZoneId": "use1-az3",
+        "PrivateDnsNameOptionsOnLaunch": {
+          "EnableResourceNameDnsARecord": false,
+          "HostnameType": "ip-name",
+          "EnableResourceNameDnsAAAARecord": false
+        },
+        "AvailabilityZone": "us-east-1e",
+        "CidrBlock": "172.31.48.0/20",
+        "Ipv6Native": false,
+        "Tags": []
+      }
+    },
+    "ElasticLoadBalancingV2LoadBalancerLoadbalancerapphealthtrackeralb6980a8a46e0c3b01": {
+      "UpdateReplacePolicy": "Retain",
+      "Type": "AWS::ElasticLoadBalancingV2::LoadBalancer",
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "IpAddressType": "ipv4",
+        "SecurityGroups": [
+          "sg-03db0cdce9b4a8dc9"
+        ],
+        "LoadBalancerAttributes": [
+          {
+            "Value": "",
+            "Key": "access_logs.s3.prefix"
+          },
+          {
+            "Value": "append",
+            "Key": "routing.http.xff_header_processing.mode"
+          },
+          {
+            "Value": "true",
+            "Key": "routing.http2.enabled"
+          },
+          {
+            "Value": "false",
+            "Key": "waf.fail_open.enabled"
+          },
+          {
+            "Value": "",
+            "Key": "connection_logs.s3.bucket"
+          },
+          {
+            "Value": "false",
+            "Key": "access_logs.s3.enabled"
+          },
+          {
+            "Value": "false",
+            "Key": "zonal_shift.config.enabled"
+          },
+          {
+            "Value": "defensive",
+            "Key": "routing.http.desync_mitigation_mode"
+          },
+          {
+            "Value": "",
+            "Key": "connection_logs.s3.prefix"
+          },
+          {
+            "Value": "",
+            "Key": "health_check_logs.s3.prefix"
+          },
+          {
+            "Value": "false",
+            "Key": "routing.http.x_amzn_tls_version_and_cipher_suite.enabled"
+          },
+          {
+            "Value": "false",
+            "Key": "routing.http.preserve_host_header.enabled"
+          },
+          {
+            "Value": "true",
+            "Key": "load_balancing.cross_zone.enabled"
+          },
+          {
+            "Value": "false",
+            "Key": "health_check_logs.s3.enabled"
+          },
+          {
+            "Value": "",
+            "Key": "health_check_logs.s3.bucket"
+          },
+          {
+            "Value": "false",
+            "Key": "routing.http.xff_client_port.enabled"
+          },
+          {
+            "Value": "",
+            "Key": "access_logs.s3.bucket"
+          },
+          {
+            "Value": "false",
+            "Key": "deletion_protection.enabled"
+          },
+          {
+            "Value": "3600",
+            "Key": "client_keep_alive.seconds"
+          },
+          {
+            "Value": "false",
+            "Key": "routing.http.drop_invalid_header_fields.enabled"
+          },
+          {
+            "Value": "false",
+            "Key": "connection_logs.s3.enabled"
+          },
+          {
+            "Value": "60",
+            "Key": "idle_timeout.timeout_seconds"
+          }
+        ],
+        "Subnets": [
+          "subnet-0df530aee335f0a39",
+          "subnet-0ec952e696a2ef0bf"
+        ],
+        "Type": "application",
+        "Scheme": "internet-facing",
+        "EnablePrefixForIpv6SourceNat": "off",
+        "Tags": [],
+        "Name": "healthtracker-alb",
+        "SubnetMappings": [
+          {
+            "SubnetId": "subnet-0ec952e696a2ef0bf"
+          },
+          {
+            "SubnetId": "subnet-0df530aee335f0a39"
+          }
+        ]
+      }
+    },
+    "EC2SubnetKb": {
+      "UpdateReplacePolicy": "Retain",
+      "Type": "AWS::EC2::Subnet",
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "MapPublicIpOnLaunch": true,
+        "EnableDns64": false,
+        "VpcId": "vpc-0e4fc5ad3665fda58",
+        "AvailabilityZoneId": "use1-az2",
+        "PrivateDnsNameOptionsOnLaunch": {
+          "EnableResourceNameDnsARecord": false,
+          "HostnameType": "ip-name",
+          "EnableResourceNameDnsAAAARecord": false
+        },
+        "AvailabilityZone": "us-east-1b",
+        "CidrBlock": "172.31.80.0/20",
+        "Ipv6Native": false,
+        "Tags": []
+      }
+    },
+    "EC2SubnetNetworkAclAssociationXA": {
+      "UpdateReplacePolicy": "Retain",
+      "Type": "AWS::EC2::SubnetNetworkAclAssociation",
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "NetworkAclId": "acl-0f6386bea5fab38d0",
+        "SubnetId": "subnet-025149b8cca7c8366"
+      }
+    },
+    "EC2SecurityGroupEgress": {
+      "UpdateReplacePolicy": "Retain",
+      "Type": "AWS::EC2::SecurityGroupEgress",
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "CidrIp": "0.0.0.0/0",
+        "IpProtocol": "-1",
+        "FromPort": -1,
+        "ToPort": -1,
+        "GroupId": "sg-03db0cdce9b4a8dc9"
+      }
+    },
+    "CloudFrontOriginRequestPolicy": {
+      "UpdateReplacePolicy": "Retain",
+      "Type": "AWS::CloudFront::OriginRequestPolicy",
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "OriginRequestPolicyConfig": {
+          "QueryStringsConfig": {
+            "QueryStringBehavior": "all"
+          },
+          "Comment": "Policy to forward all parameters in viewer requests",
+          "HeadersConfig": {
+            "HeaderBehavior": "allViewer"
+          },
+          "CookiesConfig": {
+            "CookieBehavior": "all"
+          },
+          "Name": "Managed-AllViewer"
+        }
+      }
+    },
+    "EC2SubnetDO": {
+      "UpdateReplacePolicy": "Retain",
+      "Type": "AWS::EC2::Subnet",
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "MapPublicIpOnLaunch": false,
+        "EnableDns64": false,
+        "VpcId": "vpc-0f24aedd86f34bab3",
+        "AvailabilityZoneId": "use1-az1",
+        "PrivateDnsNameOptionsOnLaunch": {
+          "EnableResourceNameDnsARecord": false,
+          "HostnameType": "ip-name",
+          "EnableResourceNameDnsAAAARecord": false
+        },
+        "AvailabilityZone": "us-east-1a",
+        "CidrBlock": "10.0.0.0/24",
+        "Ipv6Native": false,
+        "Tags": [
+          {
+            "Value": "project-subnet-public1-us-east-1a",
+            "Key": "Name"
+          }
+        ]
+      }
+    },
+    "EC2VPC": {
+      "UpdateReplacePolicy": "Retain",
+      "Type": "AWS::EC2::VPC",
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "CidrBlock": "172.31.0.0/16",
+        "EnableDnsSupport": true,
+        "InstanceTenancy": "default",
+        "EnableDnsHostnames": true,
+        "Tags": []
+      }
+    },
+    "EC2SecurityGroupIngressKc": {
+      "UpdateReplacePolicy": "Retain",
+      "Type": "AWS::EC2::SecurityGroupIngress",
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "GroupName": "App-SG",
+        "FromPort": 8080,
+        "SourceSecurityGroupName": "ALB-SG",
+        "ToPort": 8080,
+        "SourceSecurityGroupOwnerId": "256071447139",
+        "IpProtocol": "tcp",
+        "SourceSecurityGroupId": "sg-03db0cdce9b4a8dc9",
+        "GroupId": "sg-04f7edcadfa0fb2a7"
+      }
+    },
+    "CloudFrontOriginAccessControl": {
+      "UpdateReplacePolicy": "Retain",
+      "Type": "AWS::CloudFront::OriginAccessControl",
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "OriginAccessControlConfig": {
+          "SigningBehavior": "always",
+          "Description": "Created by CloudFront",
+          "SigningProtocol": "sigv4",
+          "OriginAccessControlOriginType": "s3",
+          "Name": "oac-health-tracker-frontend-prod.s3.us-east-1.amazon-msbvcsduic2"
+        }
+      }
+    },
+    "EC2SecurityGroupEgressDJ": {
+      "UpdateReplacePolicy": "Retain",
+      "Type": "AWS::EC2::SecurityGroupEgress",
+      "DeletionPolicy": "Retain",
+      "Properties": {
+        "CidrIp": "0.0.0.0/0",
+        "IpProtocol": "-1",
+        "FromPort": -1,
+        "ToPort": -1,
+        "GroupId": "sg-0417a762451007c5a"
+      }
+    }
+  }
+}
