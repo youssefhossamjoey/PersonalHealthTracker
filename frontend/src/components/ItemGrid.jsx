@@ -308,14 +308,13 @@ export default function ItemGrid() {
             {!loading && items.length > 0 && (
                 <div className="item-grid">
                     {items.map((item) => (
-                        <div key={item.id} className="item-grid-row">
-                            <ItemCard
-                                item={item}
-                                onDelete={showDeleteConfirm}
-                                selected={selectedIds.has(item.id)}
-                                onToggleSelect={() => toggleSelect(item.id)}
-                            />
-                        </div>
+                        <ItemCard
+                            key={item.id}
+                            item={item}
+                            onDelete={showDeleteConfirm}
+                            selected={selectedIds.has(item.id)}
+                            onToggleSelect={() => toggleSelect(item.id)}
+                        />
                     ))}
                 </div>
             )}
