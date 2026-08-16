@@ -2,8 +2,10 @@ package com.example.personalhealthtracker.services.impl;
 
 import com.example.personalhealthtracker.domain.dto.RecipeSummary;
 import com.example.personalhealthtracker.domain.entities.RecipeEntity;
+import com.example.personalhealthtracker.repositories.FoodItemRepository;
 import com.example.personalhealthtracker.repositories.RecipeRepository;
 import com.example.personalhealthtracker.services.RecipeService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -17,13 +19,12 @@ import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 @Service
+@RequiredArgsConstructor
+
 public class RecipeServiceImpl implements RecipeService {
 
-    private RecipeRepository recipeRepository;
-
-    public RecipeServiceImpl(RecipeRepository recipeRepository) {
-        this.recipeRepository = recipeRepository;
-    }
+    private final RecipeRepository recipeRepository;
+    private final FoodItemRepository foodItemRepository;
 
     @Override
     public RecipeEntity createRecipe(RecipeEntity recipeEntity) {

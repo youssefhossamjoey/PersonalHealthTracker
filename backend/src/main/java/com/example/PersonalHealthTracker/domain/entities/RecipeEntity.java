@@ -4,11 +4,15 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.UuidGenerator;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-@Data
+@Getter
+@Setter
 @Entity
 @Table(name="recipe")
 @NoArgsConstructor
@@ -17,8 +21,8 @@ import java.util.UUID;
 public class RecipeEntity {
 
     @Id
-    @GeneratedValue(generator = "UUID")
-    @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
+    @GeneratedValue
+    @UuidGenerator
     @Column(name = "id", updatable = false, nullable = false)
     private UUID id;
 
@@ -28,16 +32,35 @@ public class RecipeEntity {
     @JoinColumn(name = "owner_id", nullable = false,referencedColumnName = "id")
     private UserAccountEntity owner;
 
-    @ElementCollection
-    @CollectionTable(name = "recipe_items", joinColumns = @JoinColumn(name = "recipe_id"))
-    @MapKeyColumn(name = "food_item_id")
-    @Column(name = "amount")
-    @Cascade(org.hibernate.annotations.CascadeType.DELETE_ORPHAN)
-    private Map<UUID, Double> items;
+    @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Builder.Default
+    private List<RecipeItemEntity> items = new ArrayList<>();
 
-    public RecipeEntity(String name, UserAccountEntity owner, Map<UUID, Double> items) {
-        this.name = name;
-        this.owner = owner;
-        this.items = items;
+    public void addItem(FoodItemEntity foodItem, Double amount) {
+        RecipeItemEntity item = RecipeItemEntity.builder()
+                .recipe(this)
+                .foodItem(foodItem)
+                .amount(amount)
+                .build();
+        this.items.add(item);
     }
+
+    public void removeItem(RecipeItemEntity item) {
+        this.items.remove(item);
+        item.setRecipe(null);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof RecipeEntity that)) return false;
+        return id != null && id.equals(that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
+
+
 }

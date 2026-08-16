@@ -1,11 +1,8 @@
 package com.example.personalhealthtracker.controllers;
 
-import com.example.personalhealthtracker.domain.dto.FoodItem;
-import com.example.personalhealthtracker.domain.dto.Recipe;
+import com.example.personalhealthtracker.domain.dto.RecipeDetail;
 import com.example.personalhealthtracker.domain.dto.RecipeSummary;
-import com.example.personalhealthtracker.domain.entities.FoodItemEntity;
 import com.example.personalhealthtracker.domain.entities.RecipeEntity;
-import com.example.personalhealthtracker.mappers.Mapper;
 import com.example.personalhealthtracker.mappers.impl.RecipeMapper;
 import com.example.personalhealthtracker.security.UserAccountDetails;
 import com.example.personalhealthtracker.services.RecipeService;
@@ -35,19 +32,19 @@ public class RecipeController {
         this.recipeService = recipeService;
     }
     @PostMapping
-    public ResponseEntity<Void> createRecipe(@RequestBody Recipe recipe, UriComponentsBuilder ucb, @AuthenticationPrincipal UserAccountDetails user) {
-        RecipeEntity entity = recipeMapper.mapFrom(recipe);
+    public ResponseEntity<Void> createRecipe(@RequestBody RecipeDetail recipeDetail, UriComponentsBuilder ucb, @AuthenticationPrincipal UserAccountDetails user) {
+        RecipeEntity entity = recipeMapper.mapFrom(recipeDetail);
         entity.setOwner(user.getUser());
-        Recipe createdRecipe = recipeMapper.mapTo(recipeService.createRecipe(entity));
+        RecipeDetail createdRecipeDetail = recipeMapper.mapTo(recipeService.createRecipe(entity));
         URI locationOfNewRecipe = ucb
-                .path("recipe/{id}")
-                .buildAndExpand(createdRecipe.getId())
+                .path("recipeDetail/{id}")
+                .buildAndExpand(createdRecipeDetail.getId())
                 .toUri();
         return ResponseEntity.created(locationOfNewRecipe).build();
     }
 
     @GetMapping(path = "/{id}")
-    public ResponseEntity<Recipe> getRecipe(@PathVariable("id") UUID id, @AuthenticationPrincipal UserAccountDetails user) {
+    public ResponseEntity<RecipeDetail> getRecipe(@PathVariable("id") UUID id, @AuthenticationPrincipal UserAccountDetails user) {
         Optional<RecipeEntity> requestedRecipe = recipeService.findOne(id, user.getId());
         return requestedRecipe.map(recipeEntity ->
                         ResponseEntity.ok(recipeMapper.mapTo(recipeEntity)))

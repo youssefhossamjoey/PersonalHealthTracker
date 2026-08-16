@@ -4,6 +4,7 @@ import com.example.personalhealthtracker.domain.dto.RecipeSummary;
 import com.example.personalhealthtracker.domain.entities.RecipeEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -15,8 +16,10 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-public interface RecipeRepository extends CrudRepository<RecipeEntity, UUID>, PagingAndSortingRepository<RecipeEntity, UUID> {
+public interface RecipeRepository extends JpaRepository<RecipeEntity, UUID> {
     Optional<RecipeEntity> findByIdAndOwner_Id(UUID id, UUID ownerId);
+
+    boolean existsByRecipesId(UUID recipeId);
 
     List<RecipeEntity> findAllByOwner_Id(UUID ownerId);
 
@@ -42,46 +45,46 @@ public interface RecipeRepository extends CrudRepository<RecipeEntity, UUID>, Pa
             SELECT new com.example.personalhealthtracker.domain.dto.RecipeSummary(
                 r.id,
                 r.name,
-                SUM(VALUE(ri) * fi.kcal) as kcal,
-                SUM(VALUE(ri) * fi.pro) as pro
+                SUM(ri.amount * fi.kcal),
+                SUM(ri.amount * fi.pro)
             )
             FROM RecipeEntity r
             JOIN r.items ri
-            JOIN FoodItemEntity fi ON KEY(ri) = fi.id
+            JOIN ri.foodItem fi
             WHERE r.id = :id
             AND r.owner.id = :ownerId
             GROUP BY r.id, r.name
             """)
-    Optional getRecipeSummary(UUID ownerId, UUID id);
+    Optional<RecipeSummary> getRecipeSummary(@Param("ownerId") UUID ownerId, @Param("id") UUID id);
 
     @Query("""
             SELECT new com.example.personalhealthtracker.domain.dto.RecipeSummary(
                 r.id,
                 r.name,
-                SUM(VALUE(ri) * fi.kcal) as kcal,
-                SUM(VALUE(ri) * fi.pro) as pro
+                SUM(ri.amount * fi.kcal),
+                SUM(ri.amount * fi.pro)
             )
             FROM RecipeEntity r
             JOIN r.items ri
-            JOIN FoodItemEntity fi ON KEY(ri) = fi.id
+            JOIN ri.foodItem fi
             WHERE r.owner.id = :ownerId
             AND LOWER(r.name) LIKE CONCAT('%',LOWER(:query),'%')
             GROUP BY r.id, r.name
             """)
-    Page<RecipeSummary> searchRecipeSummary(UUID ownerId, String query, Pageable pageable);
+    Page<RecipeSummary> searchRecipeSummary(@Param("ownerId") UUID ownerId, @Param("query") String query, Pageable pageable);
 
     @Query("""
             SELECT new com.example.personalhealthtracker.domain.dto.RecipeSummary(
                 r.id,
                 r.name,
-                SUM(VALUE(ri) * fi.kcal) as kcal,
-                SUM(VALUE(ri) * fi.pro) as pro
+                SUM(ri.amount * fi.kcal),
+                SUM(ri.amount * fi.pro)
             )
             FROM RecipeEntity r
             JOIN r.items ri
-            JOIN FoodItemEntity fi ON KEY(ri) = fi.id
+            JOIN ri.foodItem fi
             WHERE r.owner.id = :ownerId
             GROUP BY r.id, r.name
             """)
-    Page<RecipeSummary> searchRecipeSummary(UUID ownerId, Pageable pageable);
+    Page<RecipeSummary> searchRecipeSummary(@Param("ownerId") UUID ownerId, Pageable pageable);
 }
